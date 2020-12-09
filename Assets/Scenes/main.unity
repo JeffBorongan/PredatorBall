@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 836074412}
   - component: {fileID: 836074411}
   - component: {fileID: 836074415}
+  - component: {fileID: 836074416}
   m_Layer: 8
   m_Name: Ball
   m_TagString: Untagged
@@ -395,7 +396,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: c6a7993f8e3c52843ab476fa1651d37f, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -572,6 +573,19 @@ TrailRenderer:
   m_MinVertexDistance: 0.001
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &836074416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836074410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2979f1d18e35c4db8155c145399537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 200
 --- !u!1 &1220990830
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,7 +708,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1562951769}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c6a7993f8e3c52843ab476fa1651d37f, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -802,7 +816,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1597955626}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c6a7993f8e3c52843ab476fa1651d37f, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1025,7 +1039,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1803037753}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c6a7993f8e3c52843ab476fa1651d37f, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1133,7 +1147,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1866248761}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c6a7993f8e3c52843ab476fa1651d37f, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
