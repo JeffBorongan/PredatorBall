@@ -109,6 +109,17 @@ public class LinesDrawer : MonoBehaviour
 			}
 			else
 			{
+				if (lineColor.colorKeys[0].color == redInk)
+                {
+					gameObject.tag = "Red Ink";
+                } else if (lineColor.colorKeys[0].color == blueInk)
+                {
+					gameObject.tag = "Blue Ink";
+                } else if (lineColor.colorKeys[0].color == yellowInk)
+                {
+					gameObject.tag = "Yellow Ink";
+                }
+
 				//Add the line to "CantDrawOver" layer
 				currentLine.gameObject.layer = cantDrawOverLayerIndex;
 
