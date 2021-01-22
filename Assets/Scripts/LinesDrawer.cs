@@ -38,14 +38,33 @@ public class LinesDrawer : MonoBehaviour
 			EndDraw();
 	}
 
+	public void RedButton()
+    {
+		lineColor.SetKeys(
+			new GradientColorKey[] { new GradientColorKey(redInk, 1.0f) },
+			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+		);
+	}
+
+	public void BlueButton()
+	{
+		lineColor.SetKeys(
+			new GradientColorKey[] { new GradientColorKey(blueInk, 1.0f) },
+			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+		);
+	}
+
+	public void YellowButton()
+	{
+		lineColor.SetKeys(
+			new GradientColorKey[] { new GradientColorKey(yellowInk, 1.0f) },
+			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+		);
+	}
+
 	// Begin Draw ----------------------------------------------
 	void BeginDraw()
 	{
-		lineColor.SetKeys(
-			new GradientColorKey[] { new GradientColorKey(blueInk, 1.0f)},
-			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
-		);
-
 		currentLine = Instantiate(linePrefab, this.transform).GetComponent<Line>();
 		//Set line properties
 		currentLine.UsePhysics(false);
