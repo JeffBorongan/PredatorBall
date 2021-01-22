@@ -15,6 +15,10 @@ public class LinesDrawer : MonoBehaviour
 	public int maximumInkLength = 10;
 	public int totalMaximumInk = 100;
 	Camera cam;
+	Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
+	Color blueInk = new Color(0.2235294f, 0.6f, 0.8352942f, 1.0f);
+	Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
+
 
 	void Start()
 	{
@@ -37,6 +41,11 @@ public class LinesDrawer : MonoBehaviour
 	// Begin Draw ----------------------------------------------
 	void BeginDraw()
 	{
+		lineColor.SetKeys(
+			new GradientColorKey[] { new GradientColorKey(blueInk, 1.0f)},
+			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+		);
+
 		currentLine = Instantiate(linePrefab, this.transform).GetComponent<Line>();
 		//Set line properties
 		currentLine.UsePhysics(false);
