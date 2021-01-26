@@ -24,7 +24,7 @@ public class LineDrawer : MonoBehaviour
 	void Start()
 	{
 		cam = Camera.main;
-		cantDrawOverLayerIndex = LayerMask.NameToLayer("CantDrawOver");
+		cantDrawOverLayerIndex = LayerMask.NameToLayer("Obstacle");
 		YellowButton();
 	}
 

@@ -279,7 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 292370726}
   - component: {fileID: 292370727}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eye
   m_TagString: Game Ball
   m_Icon: {fileID: 0}
@@ -668,7 +668,7 @@ GameObject:
   - component: {fileID: 836074411}
   - component: {fileID: 836074415}
   - component: {fileID: 836074416}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball
   m_TagString: Game Ball
   m_Icon: {fileID: 0}
@@ -907,7 +907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1220990831}
   - component: {fileID: 1220990832}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eye
   m_TagString: Game Ball
   m_Icon: {fileID: 0}
