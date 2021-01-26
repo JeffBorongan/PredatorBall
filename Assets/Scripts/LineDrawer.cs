@@ -10,7 +10,6 @@ public class LineDrawer : MonoBehaviour
 	public float linePointsMinDistance;
 	public float lineWidth;
 	Line currentLine;
-	Line newLine;
 	int currentInk;
 	int redCurrentInk;
 	int blueCurrentInk;
@@ -26,6 +25,7 @@ public class LineDrawer : MonoBehaviour
 	{
 		cam = Camera.main;
 		cantDrawOverLayerIndex = LayerMask.NameToLayer("CantDrawOver");
+		YellowButton();
 	}
 
 	void Update()
@@ -95,15 +95,7 @@ public class LineDrawer : MonoBehaviour
 			Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
 			//Check if mousePos hits any collider with layer "CantDrawOver", if true cut the line by calling EndDraw( )
 			RaycastHit2D hit = Physics2D.CircleCast(mousePosition, lineWidth / 3f, Vector2.zero, 1f, cantDrawOverLayer);
-			if (currentLine.pointsCount > 1)
-			{
-				if (newLine != null)
-				{
-					Destroy(newLine.gameObject);
-					newLine = null;
-				}
-			}
-
+			
 			if (hit)
 				EndDraw();
 			else
@@ -113,20 +105,7 @@ public class LineDrawer : MonoBehaviour
 	// End Draw ------------------------------------------------
 	void EndDraw()
 	{
-		if (lineColor.colorKeys[0].color == redInk)
-		{
-			redCurrentInk += currentLine.pointsCount;
-		}
-		else if (lineColor.colorKeys[0].color == blueInk)
-		{
-			blueCurrentInk += currentLine.pointsCount;
-		}
-		else if (lineColor.colorKeys[0].color == yellowInk)
-		{
-			yellowCurrentInk += currentLine.pointsCount;
-		}
 		currentInk = 0;
-
 		if (currentLine != null)
 		{
 			if (currentLine.pointsCount < 2)
@@ -138,24 +117,23 @@ public class LineDrawer : MonoBehaviour
 			{
 				if (lineColor.colorKeys[0].color == redInk)
                 {
+					redCurrentInk += currentLine.pointsCount;
 					currentLine.gameObject.tag = "Red Ink";
                 } else if (lineColor.colorKeys[0].color == blueInk)
                 {
+					blueCurrentInk += currentLine.pointsCount;
 					currentLine.gameObject.tag = "Blue Ink";
                 } else if (lineColor.colorKeys[0].color == yellowInk)
                 {
+					yellowCurrentInk += currentLine.pointsCount;
 					currentLine.gameObject.tag = "Yellow Ink";
                 }
+				Destroy(currentLine.gameObject, 3.0f);
 
 				//Add the line to "CantDrawOver" layer
 				currentLine.gameObject.layer = cantDrawOverLayerIndex;
 
-				newLine = currentLine;
-
-				if (newLine != null)
-				{
-					currentLine = null;
-				}
+				currentLine = null;
 			}
 		}
 	}
