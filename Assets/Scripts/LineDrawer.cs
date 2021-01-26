@@ -12,6 +12,9 @@ public class LineDrawer : MonoBehaviour
 	Line currentLine;
 	Line newLine;
 	int currentInk;
+	int redCurrentInk;
+	int blueCurrentInk;
+	int yellowCurrentInk;
 	public int maximumInkLength = 10;
 	public int totalMaximumInk = 100;
 	Camera cam;
@@ -74,6 +77,19 @@ public class LineDrawer : MonoBehaviour
 	// Draw ----------------------------------------------------
 	void Draw()
 	{
+		if (lineColor.colorKeys[0].color == redInk)
+		{
+			currentInk = redCurrentInk;
+		}
+		else if (lineColor.colorKeys[0].color == blueInk)
+		{
+			currentInk = blueCurrentInk;
+		}
+		else if (lineColor.colorKeys[0].color == yellowInk)
+		{
+			currentInk = yellowCurrentInk;
+		}
+
 		if (currentInk <= totalMaximumInk)
 		{
 			Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -84,7 +100,6 @@ public class LineDrawer : MonoBehaviour
 				if (newLine != null)
 				{
 					Destroy(newLine.gameObject);
-
 					newLine = null;
 				}
 			}
@@ -98,7 +113,20 @@ public class LineDrawer : MonoBehaviour
 	// End Draw ------------------------------------------------
 	void EndDraw()
 	{
-		currentInk += currentLine.pointsCount;
+		if (lineColor.colorKeys[0].color == redInk)
+		{
+			redCurrentInk += currentLine.pointsCount;
+		}
+		else if (lineColor.colorKeys[0].color == blueInk)
+		{
+			blueCurrentInk += currentLine.pointsCount;
+		}
+		else if (lineColor.colorKeys[0].color == yellowInk)
+		{
+			yellowCurrentInk += currentLine.pointsCount;
+		}
+		currentInk = 0;
+
 		if (currentLine != null)
 		{
 			if (currentLine.pointsCount < 2)
