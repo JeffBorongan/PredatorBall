@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class LinesDrawer : MonoBehaviour
+public class LineDrawer : MonoBehaviour
 {
 	public GameObject linePrefab;
 	public LayerMask cantDrawOverLayer;
@@ -18,7 +18,6 @@ public class LinesDrawer : MonoBehaviour
 	Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
 	Color blueInk = new Color(0.2235294f, 0.6f, 0.8352942f, 1.0f);
 	Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
-
 
 	void Start()
 	{
@@ -111,13 +110,13 @@ public class LinesDrawer : MonoBehaviour
 			{
 				if (lineColor.colorKeys[0].color == redInk)
                 {
-					gameObject.tag = "Red Ink";
+					currentLine.gameObject.tag = "Red Ink";
                 } else if (lineColor.colorKeys[0].color == blueInk)
                 {
-					gameObject.tag = "Blue Ink";
+					currentLine.gameObject.tag = "Blue Ink";
                 } else if (lineColor.colorKeys[0].color == yellowInk)
                 {
-					gameObject.tag = "Yellow Ink";
+					currentLine.gameObject.tag = "Yellow Ink";
                 }
 
 				//Add the line to "CantDrawOver" layer
