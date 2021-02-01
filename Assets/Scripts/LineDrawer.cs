@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class LineDrawer : MonoBehaviour
 {
@@ -14,17 +15,24 @@ public class LineDrawer : MonoBehaviour
 	int redCurrentInk;
 	int blueCurrentInk;
 	int yellowCurrentInk;
-	public int maximumInkLength = 10;
-	public int totalMaximumInk = 100;
+	int maximumInkLength = 10;
 	Camera cam;
 	Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
 	Color blueInk = new Color(0.2235294f, 0.6f, 0.8352942f, 1.0f);
 	Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
+	public Sprite redInkSprite;
+	public Sprite blueInkSprite;
+	public Sprite yellowInkSprite;
+	public Image leftSideInkImage;
+	public Image rightSideInkImage;
 
 	void Start()
 	{
 		cam = Camera.main;
 		cantDrawOverLayerIndex = LayerMask.NameToLayer("Obstacle");
+		redCurrentInk = 100;
+		blueCurrentInk = 100;
+		yellowCurrentInk = 100;
 		YellowButton();
 	}
 
@@ -36,7 +44,7 @@ public class LineDrawer : MonoBehaviour
 		if (currentLine != null)
 			Draw();
 
-		if ((Input.GetMouseButtonUp(0)) || (currentLine.pointsCount > maximumInkLength))
+		if ((Input.GetMouseButtonUp(0)) || (currentLine.pointsCount >= maximumInkLength))
 			EndDraw();
 	}
 
@@ -46,6 +54,13 @@ public class LineDrawer : MonoBehaviour
 			new GradientColorKey[] { new GradientColorKey(redInk, 1.0f) },
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 		);
+
+		leftSideInkImage.sprite = redInkSprite;
+		leftSideInkImage.type = Image.Type.Filled;
+		leftSideInkImage.fillMethod = Image.FillMethod.Vertical;
+		leftSideInkImage.fillOrigin = 0;
+		leftSideInkImage.fillAmount = Mathf.Clamp(redCurrentInk / 100.0f, 0.0f, 1.0f);
+		
 	}
 
 	public void BlueButton()
@@ -54,6 +69,12 @@ public class LineDrawer : MonoBehaviour
 			new GradientColorKey[] { new GradientColorKey(blueInk, 1.0f) },
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 		);
+
+		leftSideInkImage.sprite = blueInkSprite;
+		leftSideInkImage.type = Image.Type.Filled;
+		leftSideInkImage.fillMethod = Image.FillMethod.Vertical;
+		leftSideInkImage.fillOrigin = 0;
+		leftSideInkImage.fillAmount = Mathf.Clamp(blueCurrentInk / 100.0f, 0.0f, 1.0f);
 	}
 
 	public void YellowButton()
@@ -62,6 +83,12 @@ public class LineDrawer : MonoBehaviour
 			new GradientColorKey[] { new GradientColorKey(yellowInk, 1.0f) },
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 		);
+
+		leftSideInkImage.sprite = yellowInkSprite;
+		leftSideInkImage.type = Image.Type.Filled;
+		leftSideInkImage.fillMethod = Image.FillMethod.Vertical;
+		leftSideInkImage.fillOrigin = 0;
+		leftSideInkImage.fillAmount = Mathf.Clamp(yellowCurrentInk / 100.0f, 0.0f, 1.0f);
 	}
 
 	// Begin Draw ----------------------------------------------
@@ -90,7 +117,7 @@ public class LineDrawer : MonoBehaviour
 			currentInk = yellowCurrentInk;
 		}
 
-		if (currentInk <= totalMaximumInk)
+		if (currentInk >= 0)
 		{
 			Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
 			//Check if mousePos hits any collider with layer "CantDrawOver", if true cut the line by calling EndDraw( )
@@ -117,17 +144,21 @@ public class LineDrawer : MonoBehaviour
 			{
 				if (lineColor.colorKeys[0].color == redInk)
                 {
-					redCurrentInk += currentLine.pointsCount;
+					redCurrentInk -= currentLine.pointsCount;
+					leftSideInkImage.fillAmount = Mathf.Clamp(redCurrentInk / 100.0f, 0.0f, 1.0f);
 					currentLine.gameObject.tag = "Red Ink";
                 } else if (lineColor.colorKeys[0].color == blueInk)
                 {
-					blueCurrentInk += currentLine.pointsCount;
+					blueCurrentInk -= currentLine.pointsCount;
+					leftSideInkImage.fillAmount = Mathf.Clamp(blueCurrentInk / 100.0f, 0.0f, 1.0f);
 					currentLine.gameObject.tag = "Blue Ink";
                 } else if (lineColor.colorKeys[0].color == yellowInk)
                 {
-					yellowCurrentInk += currentLine.pointsCount;
+					yellowCurrentInk -= currentLine.pointsCount;
+					leftSideInkImage.fillAmount = Mathf.Clamp(yellowCurrentInk / 100.0f, 0.0f, 1.0f);
 					currentLine.gameObject.tag = "Yellow Ink";
                 }
+				
 				Destroy(currentLine.gameObject, 3.0f);
 
 				//Add the line to "CantDrawOver" layer
