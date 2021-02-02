@@ -29,5 +29,13 @@ public class BallMovement : MonoBehaviour
 		{
 			print("Yellow Ink");
 		}
+		else if (other.gameObject.tag == "Left Side Goal")
+		{
+			print("Left Side Goal");
+		}
+		else if (other.gameObject.tag == "Right Side Goal")
+		{
+			print("Right Side Goal");
+		}
 	}
 }

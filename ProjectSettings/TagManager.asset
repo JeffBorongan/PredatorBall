@@ -8,6 +8,8 @@ TagManager:
   - Red Ink
   - Blue Ink
   - Yellow Ink
+  - Left Side Goal
+  - Right Side Goal
   layers:
   - Default
   - TransparentFX
