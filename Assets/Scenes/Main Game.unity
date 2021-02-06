@@ -1797,7 +1797,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1775531548}
   - component: {fileID: 1775531547}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2079,14 +2079,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c43f9255d2e0f946a81ffca832f61ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linePrefab: {fileID: 1576317030557830, guid: d489242030c18584caa5c64bba0a6082, type: 3}
   cantDrawOverLayer:
     serializedVersion: 2
     m_Bits: 256
+  linePrefab: {fileID: 1576317030557830, guid: d489242030c18584caa5c64bba0a6082, type: 3}
+  redInkSprite: {fileID: 21300000, guid: 13b05f1b0e5cec2438ad2ffd277edd84, type: 3}
+  blueInkSprite: {fileID: 21300000, guid: 999192136bfb37240aa51eb175201400, type: 3}
+  yellowInkSprite: {fileID: 21300000, guid: 42f159f124da10a4c95b2108ccce81ec, type: 3}
+  leftSideInkImage: {fileID: 90072827}
+  rightSideInkImage: {fileID: 786484553}
   lineColor:
     serializedVersion: 2
-    key0: {r: 0.6847872, g: 0.3823529, b: 1, a: 1}
-    key1: {r: 0.6862745, g: 0.3803922, b: 1, a: 1}
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -2112,13 +2117,9 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  linePointsMinDistance: 0.2
+  pointsMinDistance: 0.2
   lineWidth: 0.2
-  redInkSprite: {fileID: 21300000, guid: 13b05f1b0e5cec2438ad2ffd277edd84, type: 3}
-  blueInkSprite: {fileID: 21300000, guid: 999192136bfb37240aa51eb175201400, type: 3}
-  yellowInkSprite: {fileID: 21300000, guid: 42f159f124da10a4c95b2108ccce81ec, type: 3}
-  leftSideInkImage: {fileID: 90072827}
-  rightSideInkImage: {fileID: 786484553}
+  maximumLineLength: 2.5
 --- !u!1 &2038929920
 GameObject:
   m_ObjectHideFlags: 0

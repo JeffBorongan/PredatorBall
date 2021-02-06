@@ -3,72 +3,52 @@ using System.Collections.Generic;
 
 public class Line : MonoBehaviour
 {
-
 	public LineRenderer lineRenderer;
 	public EdgeCollider2D edgeCollider;
-	public Rigidbody2D rigidBody;
-
-	[HideInInspector] public List<Vector2> points = new List<Vector2>();
+	public EdgeCollider2D edgeColliderTriggerable;
+	[HideInInspector] public List<Vector2> fingerPositions;
 	[HideInInspector] public int pointsCount = 0;
-
-	//The minimum distance between line's points.
-	float pointsMinDistance = 0.1f;
-
-	//Circle collider added to each line's point
-	float circleColliderRadius;
-
-	public void AddPoint(Vector2 newPoint)
-	{
-		//If distance between last point and new point is less than pointsMinDistance do nothing (return)
-		if (pointsCount >= 1 && Vector2.Distance(newPoint, GetLastPoint()) < pointsMinDistance)
-			return;
-
-		points.Add(newPoint);
-		pointsCount++;
-
-		//Add Circle Collider to the Point
-		CircleCollider2D circleCollider = this.gameObject.AddComponent<CircleCollider2D>();
-		circleCollider.offset = newPoint;
-		circleCollider.radius = circleColliderRadius;
-
-		//Line Renderer
-		lineRenderer.positionCount = pointsCount;
-		lineRenderer.SetPosition(pointsCount - 1, newPoint);
-
-		//Edge Collider
-		//Edge colliders accept only 2 points or more (we can't create an edge with one point :D )
-		if (pointsCount > 1)
-			edgeCollider.points = points.ToArray();
-	}
-
-	public Vector2 GetLastPoint()
-	{
-		return (Vector2)lineRenderer.GetPosition(pointsCount - 1);
-	}
-
-	public void UsePhysics(bool usePhysics)
-	{
-		// isKinematic = true  means that this rigidbody is not affected by Unity's physics engine
-		rigidBody.isKinematic = !usePhysics;
-	}
+	float linePointsMinDistance;
 
 	public void SetLineColor(Gradient colorGradient)
 	{
 		lineRenderer.colorGradient = colorGradient;
 	}
 
-	public void SetPointsMinDistance(float distance)
+	public void SetLinePointsMinDistance(float distance)
 	{
-		pointsMinDistance = distance;
+		linePointsMinDistance = distance;
 	}
 
 	public void SetLineWidth(float width)
 	{
 		lineRenderer.startWidth = width;
 		lineRenderer.endWidth = width;
+	}
 
-		circleColliderRadius = width / 2f;
+	public void CreateLine()
+	{
+		fingerPositions.Clear();
+		fingerPositions.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+		fingerPositions.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+		lineRenderer.SetPosition(0, fingerPositions[0]);
+		lineRenderer.SetPosition(1, fingerPositions[1]);
+		edgeCollider.points = fingerPositions.ToArray();
+		edgeColliderTriggerable.points = fingerPositions.ToArray();
+	}
 
-		edgeCollider.edgeRadius = circleColliderRadius;
+	public void AddPoint(Vector2 newFingerPosition)
+	{
+		if (pointsCount >= 1 && Vector2.Distance(newFingerPosition, fingerPositions[fingerPositions.Count - 1]) < linePointsMinDistance)
+			return;
+
+		fingerPositions.Add(newFingerPosition);
+		pointsCount++;
+		lineRenderer.positionCount = pointsCount;
+		lineRenderer.SetPosition(pointsCount - 1, newFingerPosition);
+
+		if (pointsCount > 1)
+			edgeCollider.points = fingerPositions.ToArray();
+			edgeColliderTriggerable.points = fingerPositions.ToArray();
 	}
 }
