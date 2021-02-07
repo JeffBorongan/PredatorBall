@@ -2,27 +2,33 @@
 
 public class Ball : MonoBehaviour
 {
-    public float movementSpeed = 200;
-    private Rigidbody2D rb;
+	public Rigidbody2D rigidBody2D;
+	public float movementSpeed;
 
-    private void Awake()
+    void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.right * Time.deltaTime * movementSpeed;
-    }
+		if (Random.value > 0.5f)
+		{
+			rigidBody2D.velocity = transform.right * Time.deltaTime * movementSpeed;
+		}
+		else
+		{
+			rigidBody2D.velocity = transform.right * Time.deltaTime * -movementSpeed;
+		}
+	}
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.gameObject.tag == "Red Ink")
 		{
 			movementSpeed += 20;
-			rb.velocity = transform.right * Time.deltaTime * movementSpeed;
+			rigidBody2D.velocity = transform.right * Time.deltaTime * movementSpeed;
 			print(movementSpeed);
 		}
 		else if (other.gameObject.tag == "Blue Ink")
 		{
 			movementSpeed -= 20;
-			rb.velocity = transform.right * Time.deltaTime * movementSpeed;
+			rigidBody2D.velocity = transform.right * Time.deltaTime * movementSpeed;
 			print(movementSpeed);
 		}
 		else if (other.gameObject.tag == "Yellow Ink")
