@@ -14,6 +14,7 @@ public class LineDrawer : MonoBehaviour
 	public float pointsMinDistance;
 	public float lineWidth;
 	public float maximumLineLength;
+	public int maximumLinePoints;
 	Line currentLine;
 	int currentInk;
 	int redCurrentInk;
@@ -97,7 +98,7 @@ public class LineDrawer : MonoBehaviour
 			if (hit)
 				EndDraw();
 			else
-				if (Vector2.Distance(currentLine.fingerPositions[0], currentLine.fingerPositions[currentLine.fingerPositions.Count - 1]) <= maximumLineLength)
+				if (Vector2.Distance(currentLine.fingerPositions[0], currentLine.fingerPositions[currentLine.fingerPositions.Count - 1]) <= maximumLineLength && currentLine.pointsCount <= maximumLinePoints)
 					currentLine.AddPoint(mousePosition);
 		}
 	}

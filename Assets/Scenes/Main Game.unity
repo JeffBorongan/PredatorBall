@@ -1925,6 +1925,7 @@ MonoBehaviour:
   pointsMinDistance: 0.2
   lineWidth: 0.2
   maximumLineLength: 2.5
+  maximumLinePoints: 10
 --- !u!1 &2038929920
 GameObject:
   m_ObjectHideFlags: 0
