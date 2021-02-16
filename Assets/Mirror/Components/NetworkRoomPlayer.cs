@@ -41,7 +41,7 @@ namespace Mirror
         #region Unity Callbacks
 
         /// <summary>
-        /// Do not use Start - Override OnStartrHost / OnStartClient instead!
+        /// Do not use Start - Override OnStartHost / OnStartClient instead!
         /// </summary>
         public void Start()
         {
@@ -49,7 +49,7 @@ namespace Mirror
             {
                 // NetworkRoomPlayer object must be set to DontDestroyOnLoad along with NetworkRoomManager
                 // in server and all clients, otherwise it will be respawned in the game scene which would
-                // have undesireable effects.
+                // have undesirable effects.
                 if (room.dontDestroyOnLoad)
                     DontDestroyOnLoad(gameObject);
 

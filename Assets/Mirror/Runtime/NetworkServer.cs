@@ -91,6 +91,13 @@ namespace Mirror
         /// </summary>
         public static float disconnectInactiveTimeout = 60f;
 
+        // OnConnected / OnDisconnected used to be NetworkMessages that were
+        // invoked. this introduced a bug where external clients could send
+        // Connected/Disconnected messages over the network causing undefined
+        // behaviour.
+        internal static Action<NetworkConnection> OnConnectedEvent;
+        internal static Action<NetworkConnection> OnDisconnectedEvent;
+
         /// <summary>
         /// This shuts down the server and disconnects all clients.
         /// </summary>
@@ -213,7 +220,7 @@ namespace Mirror
         }
 
         /// <summary>
-        /// called by LocalClient to add itself. dont call directly.
+        /// called by LocalClient to add itself. don't call directly.
         /// </summary>
         /// <param name="conn"></param>
         internal static void SetLocalConnection(ULocalConnectionToClient conn)
@@ -466,7 +473,7 @@ namespace Mirror
         /// </summary>
         public static void Update()
         {
-            // dont need to update server if not active
+            // don't need to update server if not active
             if (!active)
                 return;
 
@@ -567,7 +574,7 @@ namespace Mirror
 
             // add connection and invoke connected event
             AddConnection(conn);
-            conn.InvokeHandler(new ConnectMessage(), -1);
+            OnConnectedEvent?.Invoke(conn);
         }
 
         internal static void OnDisconnected(int connectionId)
@@ -586,7 +593,7 @@ namespace Mirror
 
         static void OnDisconnected(NetworkConnection conn)
         {
-            conn.InvokeHandler(new DisconnectMessage(), -1);
+            OnDisconnectedEvent?.Invoke(conn);
             if (logger.LogEnabled()) logger.Log("Server lost client:" + conn);
         }
 
@@ -742,7 +749,7 @@ namespace Mirror
         /// <param name="conn">Connection which is adding the player.</param>
         /// <param name="player">Player object spawned for the player.</param>
         /// <param name="assetId"></param>
-        /// <returns>True if connection was sucessfully added for a connection.</returns>
+        /// <returns>True if connection was successfully added for a connection.</returns>
         public static bool AddPlayerForConnection(NetworkConnection conn, GameObject player, Guid assetId)
         {
             if (GetNetworkIdentity(player, out NetworkIdentity identity))
@@ -1200,13 +1207,13 @@ namespace Mirror
         static bool CheckForPrefab(GameObject obj)
         {
 #if UNITY_EDITOR
-#if UNITY_2018_3_OR_NEWER
+    #if UNITY_2018_3_OR_NEWER
             return UnityEditor.PrefabUtility.IsPartOfPrefabAsset(obj);
-#elif UNITY_2018_2_OR_NEWER
+    #elif UNITY_2018_2_OR_NEWER
             return (UnityEditor.PrefabUtility.GetCorrespondingObjectFromSource(obj) == null) && (UnityEditor.PrefabUtility.GetPrefabObject(obj) != null);
-#else
+    #else
             return (UnityEditor.PrefabUtility.GetPrefabParent(obj) == null) && (UnityEditor.PrefabUtility.GetPrefabObject(obj) != null);
-#endif
+    #endif
 #else
             return false;
 #endif
@@ -1244,7 +1251,7 @@ namespace Mirror
 
             identity.OnStopServer();
 
-            // when unspawning, dont destroy the server's object
+            // when unspawning, don't destroy the server's object
             if (destroyServerObject)
             {
                 identity.destroyCalled = true;
