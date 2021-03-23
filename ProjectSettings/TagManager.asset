@@ -10,6 +10,8 @@ TagManager:
   - Yellow Ink
   - Left Side Goal
   - Right Side Goal
+  - Left Side Score Text
+  - Right Side Score Text
   layers:
   - Default
   - TransparentFX
