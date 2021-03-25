@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
-public class LineDrawer : MonoBehaviour
+public class LineDrawer : NetworkBehaviour
 {
 	public LayerMask cantDrawOverLayer;
 	public GameObject linePrefab;
@@ -15,77 +16,40 @@ public class LineDrawer : MonoBehaviour
 	public float lineWidth;
 	public float maximumLineLength;
 	public int maximumLinePoints;
-	Line currentLine;
+
+	GameObject currentLine;
 	int currentInk;
-	int redCurrentInk;
-	int blueCurrentInk;
+
 	int yellowCurrentInk;
-	Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
-	Color blueInk = new Color(0.2235294f, 0.6f, 0.8352942f, 1.0f);
+
 	Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
 
-	public void RedButton()
-	{
-		lineColor.SetKeys(
-			new GradientColorKey[] { new GradientColorKey(redInk, 1.0f) },
-			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
-		);
-
-		leftSideInkImage.sprite = redInkSprite;
-		leftSideInkImage.type = Image.Type.Filled;
-		leftSideInkImage.fillMethod = Image.FillMethod.Vertical;
-		leftSideInkImage.fillOrigin = 0;
-		leftSideInkImage.fillAmount = Mathf.Clamp(redCurrentInk / 100.0f, 0.0f, 1.0f);
-	}
-
-	public void BlueButton()
-	{
-		lineColor.SetKeys(
-			new GradientColorKey[] { new GradientColorKey(blueInk, 1.0f) },
-			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
-		);
-
-		leftSideInkImage.sprite = blueInkSprite;
-		leftSideInkImage.type = Image.Type.Filled;
-		leftSideInkImage.fillMethod = Image.FillMethod.Vertical;
-		leftSideInkImage.fillOrigin = 0;
-		leftSideInkImage.fillAmount = Mathf.Clamp(blueCurrentInk / 100.0f, 0.0f, 1.0f);
-	}
-
+	[Command]
 	public void YellowButton()
 	{
 		lineColor.SetKeys(
 			new GradientColorKey[] { new GradientColorKey(yellowInk, 1.0f) },
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 		);
-
-		leftSideInkImage.sprite = yellowInkSprite;
-		leftSideInkImage.type = Image.Type.Filled;
-		leftSideInkImage.fillMethod = Image.FillMethod.Vertical;
-		leftSideInkImage.fillOrigin = 0;
-		leftSideInkImage.fillAmount = Mathf.Clamp(yellowCurrentInk / 100.0f, 0.0f, 1.0f);
 	}
 
-	void BeginDraw()
+	[Command]
+	void CmdBeginDraw()
 	{
-		currentLine = Instantiate(linePrefab, this.transform).GetComponent<Line>();
-		currentLine.SetLineColor(lineColor);
-		currentLine.SetLinePointsMinDistance(pointsMinDistance);
-		currentLine.SetLineWidth(lineWidth);
-		currentLine.CreateLine();
+		GameObject newline = Instantiate(linePrefab, this.transform);
+		NetworkServer.Spawn(newline,connectionToClient);
+		currentLine = newline;
+		//currentLine.SetLineColor(lineColor);
+		currentLine.GetComponent<Line>().SetLinePointsMinDistance(pointsMinDistance);
+		currentLine.GetComponent<Line>().SetLineWidth(lineWidth);
+		currentLine.GetComponent<Line>().CreateLine();
 	}
 
-	void Draw()
+	[Command]
+	void CmdDraw()
 	{
-		if (lineColor.colorKeys[0].color == redInk)
-		{
-			currentInk = redCurrentInk;
-		}
-		else if (lineColor.colorKeys[0].color == blueInk)
-		{
-			currentInk = blueCurrentInk;
-		}
-		else if (lineColor.colorKeys[0].color == yellowInk)
+
+		 if (lineColor.colorKeys[0].color == yellowInk)
 		{
 			currentInk = yellowCurrentInk;
 		}
@@ -96,67 +60,73 @@ public class LineDrawer : MonoBehaviour
 			RaycastHit2D hit = Physics2D.CircleCast(mousePosition, lineWidth / 3f, Vector2.zero, 1f, cantDrawOverLayer);
 
 			if (hit)
-				EndDraw();
+			{
+				CmdEndDraw();
+				
+			}
 			else
-				if (Vector2.Distance(currentLine.fingerPositions[0], currentLine.fingerPositions[currentLine.fingerPositions.Count - 1]) <= maximumLineLength && currentLine.pointsCount <= maximumLinePoints)
-					currentLine.AddPoint(mousePosition);
+				if (Vector2.Distance(currentLine.GetComponent<Line>().fingerPositions[0], currentLine.GetComponent<Line>().fingerPositions[currentLine.GetComponent<Line>().fingerPositions.Count - 1]) <= maximumLineLength && currentLine.GetComponent<Line>().pointsCount <= maximumLinePoints)
+            {
+				currentLine.GetComponent<Line>().AddPoint(mousePosition);
+			}
+					
+			
 		}
 	}
 
-	void EndDraw()
+	[Command]
+	void CmdEndDraw()
 	{
 		currentInk = 0;
 		if (currentLine != null)
 		{
-			if (currentLine.pointsCount < 2)
+			if (currentLine.GetComponent<Line>().pointsCount < 2)
 			{
-				Destroy(currentLine.gameObject);
+				currentLine.GetComponent<Line>().DestroySelf();
 			}
 			else
 			{
-				if (lineColor.colorKeys[0].color == redInk)
-				{
-					redCurrentInk -= currentLine.pointsCount;
-					leftSideInkImage.fillAmount = Mathf.Clamp(redCurrentInk / 100.0f, 0.0f, 1.0f);
-					currentLine.gameObject.tag = "Red Ink";
-				}
-				else if (lineColor.colorKeys[0].color == blueInk)
-				{
-					blueCurrentInk -= currentLine.pointsCount;
-					leftSideInkImage.fillAmount = Mathf.Clamp(blueCurrentInk / 100.0f, 0.0f, 1.0f);
-					currentLine.gameObject.tag = "Blue Ink";
-				}
-				else if (lineColor.colorKeys[0].color == yellowInk)
-				{
-					yellowCurrentInk -= currentLine.pointsCount;
-					leftSideInkImage.fillAmount = Mathf.Clamp(yellowCurrentInk / 100.0f, 0.0f, 1.0f);
-					currentLine.gameObject.tag = "Yellow Ink";
-				}
 
-				Destroy(currentLine.gameObject, 3.0f);
+                currentLine.GetComponent<Line>().DestroySelfAfter(3);
 				currentLine.gameObject.layer = LayerMask.NameToLayer("Obstacle");
 				currentLine = null;
 			}
 		}
+		else
+        {
+			print("null ang current line");
+        }
 	}
 
 	void Start()
 	{
-		redCurrentInk = 100;
-		blueCurrentInk = 100;
+		if(!isLocalPlayer)
+        {
+			return;
+        }
 		yellowCurrentInk = 100;
 		YellowButton();
 	}
-
+	
 	void Update()
 	{
+		if(!isLocalPlayer) { return; }
+
 		if (Input.GetMouseButtonDown(0))
-			BeginDraw();
+        {
+			CmdBeginDraw();
+		}
+			
 
 		if (currentLine != null)
-			Draw();
+			CmdDraw();
 
 		if (Input.GetMouseButtonUp(0))
-			EndDraw();
+			CmdEndDraw();
+
+		if (Input.GetKeyDown(KeyCode.X))
+        {
+			currentLine.transform.position = currentLine.transform.position + new Vector3(1, 0, 0);
+        }
 	}
 }
