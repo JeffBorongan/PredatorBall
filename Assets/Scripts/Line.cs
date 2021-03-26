@@ -11,8 +11,6 @@ public class Line : NetworkBehaviour
 	[ClientRpc]
 	public void drawBaseOnMouse(Vector2 mousePosition)
 	{
-		
-
 		pointsCount++;
 		gameObject.GetComponent<LineRenderer>().positionCount = pointsCount;
 		gameObject.GetComponent<LineRenderer>().SetPosition(pointsCount - 1, mousePosition);
@@ -20,8 +18,12 @@ public class Line : NetworkBehaviour
 
 		gameObject.GetComponents<EdgeCollider2D>()[0].points = fingerPositions.ToArray();
 		gameObject.GetComponents<EdgeCollider2D>()[1].points = fingerPositions.ToArray();
-		
 	}
+
+	public void RunDrawBaseMouse(Vector2 mousePosition)
+    {
+		drawBaseOnMouse(mousePosition);
+    }
 
 }
 

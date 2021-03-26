@@ -6,22 +6,37 @@ public class LineDrawer : NetworkBehaviour
 {
 	public LayerMask cantDrawOverLayer;
 	public GameObject linePrefab;
-	GameObject currentLine;
+
+	[SerializeField]
+	private GameObject currentLine;
+	Vector2 ServermousePosition;
 
 	[Command]
 	void BeginDraw()
 	{
 		GameObject newline = Instantiate(linePrefab);
 		NetworkServer.Spawn(newline);
-		currentLine = newline;
+		setCurrentLine(newline);
 	}
+
+	[ClientRpc]
+	public void setCurrentLine(GameObject newline)
+    {
+		currentLine = newline;
+    }
 
 	[Command]
 	void Draw()
 	{
-		Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		currentLine.GetComponent<Line>().drawBaseOnMouse(mousePosition);
+		currentLine.GetComponent<Line>().RunDrawBaseMouse(ServermousePosition);
 	}
+
+	[Command]
+	void setServerMousePosition(Vector2 mouseposition)
+    {
+		ServermousePosition = mouseposition;
+	}
+
 
 	
 	void Update()
@@ -31,13 +46,20 @@ public class LineDrawer : NetworkBehaviour
 			return; 
 		}
 
+		Vector3 mouseposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		setServerMousePosition(mouseposition);
+
+
 		if (Input.GetMouseButtonDown(0))
         {
 			BeginDraw();
+			
 		}
 
-		if (currentLine != null)
+		if (this.currentLine != null)
+		{
 			Draw();
+		}	
 
     }
 }
