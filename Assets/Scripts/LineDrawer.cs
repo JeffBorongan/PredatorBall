@@ -122,7 +122,7 @@ public class LineDrawer : NetworkBehaviour
 		}
 
 		//Vector3 mouseposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		//SetServerMousePosition(mouseposition);
+		///SetServerMousePosition(mouseposition);
 
 		if (Input.GetMouseButtonDown(0))
         {
