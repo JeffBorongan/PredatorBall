@@ -13,13 +13,19 @@ public class LineDrawer : NetworkBehaviour
 	public Sprite yellowInkSprite;
 	[HideInInspector] public Gradient lineColor;
 	[SerializeField] private GameObject currentLine;
+
+	[SerializeField]
 	private Image leftSideInkImage;
-	private Image rightSideInkImage;
+
+	[SerializeField]
+	GameObject LeftSideInkImageGameObject;
+
 	private Vector2 ServermousePosition;
 	private Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
 	private Color blueInk = new Color(0.2235294f, 0.6f, 0.8352942f, 1.0f);
 	private Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
 
+	[Command]
 	public void RedButton()
 	{
 		lineColor.SetKeys(
@@ -27,15 +33,10 @@ public class LineDrawer : NetworkBehaviour
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 		);
 
-		leftSideInkImage = Instantiate(leftSideImage.GetComponent<Image>());
-		leftSideInkImage.transform.SetParent(GameObject.FindGameObjectWithTag("Left Side Bottle").transform, false);
-		leftSideInkImage.sprite = redInkSprite;
-		leftSideInkImage.type = Image.Type.Filled;
-		leftSideInkImage.fillMethod = Image.FillMethod.Vertical;
-		leftSideInkImage.fillOrigin = 0;
-		leftSideInkImage.fillAmount = 100f;
+		LeftSideInkImageGameObject.GetComponent<LeftSideInkScript>().changeImageToRed();
 	}
 
+	[Command]
 	public void BlueButton()
 	{
 		lineColor.SetKeys(
@@ -43,15 +44,11 @@ public class LineDrawer : NetworkBehaviour
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 		);
 
-		leftSideInkImage = Instantiate(leftSideImage.GetComponent<Image>());
-		leftSideInkImage.transform.SetParent(GameObject.FindGameObjectWithTag("Left Side Bottle").transform, false);
-		leftSideInkImage.sprite = blueInkSprite;
-		leftSideInkImage.type = Image.Type.Filled;
-		leftSideInkImage.fillMethod = Image.FillMethod.Vertical;
-		leftSideInkImage.fillOrigin = 0;
-		leftSideInkImage.fillAmount = 100f;
+		LeftSideInkImageGameObject.GetComponent<LeftSideInkScript>().changeImageToBlue();
+
 	}
 
+	[Command]
 	public void YellowButton()
 	{
 		lineColor.SetKeys(
@@ -59,13 +56,7 @@ public class LineDrawer : NetworkBehaviour
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 		);
 
-		leftSideInkImage = Instantiate(leftSideImage.GetComponent<Image>());
-		leftSideInkImage.transform.SetParent(GameObject.FindGameObjectWithTag("Left Side Bottle").transform, false);
-		leftSideInkImage.sprite = yellowInkSprite;
-		leftSideInkImage.type = Image.Type.Filled;
-		leftSideInkImage.fillMethod = Image.FillMethod.Vertical;
-		leftSideInkImage.fillOrigin = 0;
-		leftSideInkImage.fillAmount = 100f;
+		LeftSideInkImageGameObject.GetComponent<LeftSideInkScript>().changeImageToYellow();
 	}
 
 	[Command]
@@ -94,13 +85,36 @@ public class LineDrawer : NetworkBehaviour
 		currentLine = newline;
 	}
 
+	[Client]
 	void Start()
     {
-		//leftSideInkImage = Instantiate(leftSideImage.GetComponent<Image>());
-		//leftSideInkImage.transform.SetParent(GameObject.FindGameObjectWithTag("Left Side Bottle").transform, false);
+		if (!hasAuthority)
+		{
+			return;
+		}
+		SpawnLeftInkImage();
+		
 	}
 
-	void Update()
+	[Command]
+    private void SpawnLeftInkImage()
+    {
+
+        GameObject LLeftSideInkImageGameObject = Instantiate(leftSideImage);
+        NetworkServer.Spawn(LLeftSideInkImageGameObject);
+		SetLeftSideImageGameObject(LLeftSideInkImageGameObject);
+		//RedButton();
+
+
+	}
+
+	[ClientRpc]
+    private void SetLeftSideImageGameObject(GameObject LLeftSideInkImageGameObject)
+    {
+        LeftSideInkImageGameObject = LLeftSideInkImageGameObject;
+    }
+
+    void Update()
 	{
 		if(!hasAuthority) 
 		{ 
@@ -119,5 +133,20 @@ public class LineDrawer : NetworkBehaviour
 		{
 			//Draw();
 		}	
-    }
+
+		if(Input.GetKeyDown(KeyCode.Z))
+        {
+			RedButton();
+        }
+
+		if (Input.GetKeyDown(KeyCode.X))
+		{
+			BlueButton();
+		}
+
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			YellowButton();
+		}
+	}
 }
