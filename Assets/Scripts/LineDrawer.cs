@@ -17,13 +17,8 @@ public class LineDrawer : NetworkBehaviour
 	private Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
 
 	[Command]
-	public void RedButton()
+	public void LeftSideRedButton()
 	{
-		if (!hasAuthority)
-		{
-			return;
-		}
-
 		lineColor.SetKeys(
 			new GradientColorKey[] { new GradientColorKey(redInk, 1.0f) },
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
@@ -33,13 +28,8 @@ public class LineDrawer : NetworkBehaviour
 	}
 
 	[Command]
-	public void BlueButton()
+	public void LeftSideBlueButton()
 	{
-		if (!hasAuthority)
-		{
-			return;
-		}
-
 		lineColor.SetKeys(
 			new GradientColorKey[] { new GradientColorKey(blueInk, 1.0f) },
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
@@ -49,19 +39,47 @@ public class LineDrawer : NetworkBehaviour
 	}
 
 	[Command]
-	public void YellowButton()
+	public void LeftSideYellowButton()
 	{
-		if (!hasAuthority)
-		{
-			return;
-		}
-
 		lineColor.SetKeys(
 			new GradientColorKey[] { new GradientColorKey(yellowInk, 1.0f) },
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 		);
 
 		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToYellow();
+	}
+
+	[Command]
+	public void RightSideRedButton()
+	{
+		lineColor.SetKeys(
+			new GradientColorKey[] { new GradientColorKey(redInk, 1.0f) },
+			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+		);
+
+		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToRed();
+	}
+
+	[Command]
+	public void RightSideBlueButton()
+	{
+		lineColor.SetKeys(
+			new GradientColorKey[] { new GradientColorKey(blueInk, 1.0f) },
+			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+		);
+
+		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToBlue();
+	}
+
+	[Command]
+	public void RightSideYellowButton()
+	{
+		lineColor.SetKeys(
+			new GradientColorKey[] { new GradientColorKey(yellowInk, 1.0f) },
+			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+		);
+
+		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToYellow();
 	}
 
 	[Command]
@@ -87,14 +105,17 @@ public class LineDrawer : NetworkBehaviour
 	[Command]
 	private void SpawnLeftSideInkImage()
 	{
-		if (!hasAuthority)
-		{
-			return;
-		}
-
 		GameObject localLeftSideInkImageGameObject = Instantiate(leftSideInkImage);
 		NetworkServer.Spawn(localLeftSideInkImageGameObject);
 		SetLeftSideImageGameObject(localLeftSideInkImageGameObject);
+	}
+
+	[Command]
+	private void SpawnRightSideInkImage()
+	{
+		GameObject localRightSideInkImageGameObject = Instantiate(rightSideInkImage);
+		NetworkServer.Spawn(localRightSideInkImageGameObject);
+		SetRightSideImageGameObject(localRightSideInkImageGameObject);
 	}
 
 
@@ -111,17 +132,26 @@ public class LineDrawer : NetworkBehaviour
 		leftSideInkImageGameObject = localLeftSideInkImageGameObject;
 	}
 
+	[ClientRpc]
+	private void SetRightSideImageGameObject(GameObject localRightSideInkImageGameObject)
+	{
+		rightSideInkImageGameObject = localRightSideInkImageGameObject;
+	}
+
 
 
 	[Client]
 	void Start()
     {
-		if (!hasAuthority)
+		if (!isClientOnly)
 		{
-			return;
+			SpawnLeftSideInkImage();
 		}
 
-		SpawnLeftSideInkImage();
+		if (isClientOnly)
+		{
+			SpawnRightSideInkImage();
+		}
 	}
 
 	[Client]
@@ -147,17 +177,41 @@ public class LineDrawer : NetworkBehaviour
 
 		if(Input.GetKeyDown(KeyCode.Z))
         {
-			RedButton();
+			if (!isClientOnly)
+			{
+				LeftSideRedButton();
+			}
+
+			if (isClientOnly)
+			{
+				RightSideRedButton();
+			}
 		}
 
 		if (Input.GetKeyDown(KeyCode.X))
 		{
-			BlueButton();
+			if (!isClientOnly)
+			{
+				LeftSideBlueButton();
+			}
+
+			if (isClientOnly)
+			{
+				RightSideBlueButton();
+			}
 		}
 
 		if (Input.GetKeyDown(KeyCode.C))
 		{
-			YellowButton();
+			if (!isClientOnly)
+			{
+				LeftSideYellowButton();
+			}
+
+			if (isClientOnly)
+			{
+				RightSideYellowButton();
+			}
 		}
 	}
 }
