@@ -12,6 +12,8 @@ TagManager:
   - Right Side Goal
   - Left Side Score Text
   - Right Side Score Text
+  - Left Side Bottle
+  - Right Side Bottle
   layers:
   - Default
   - TransparentFX
