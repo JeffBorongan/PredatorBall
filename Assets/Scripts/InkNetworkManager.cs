@@ -14,10 +14,10 @@ public class InkNetworkManager : NetworkManager
 
         if (numPlayers == 2)
         {
-            ball = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "Ball"));
-            Vector2 spawnPosition = new Vector2(-0.13f, Random.Range(-spawnLimits.y, spawnLimits.y));
-            ball.transform.position = spawnPosition;
-            NetworkServer.Spawn(ball);
+            //ball = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "Ball"));
+            //Vector2 spawnPosition = new Vector2(-0.13f, Random.Range(-spawnLimits.y, spawnLimits.y));
+            //ball.transform.position = spawnPosition;
+            //NetworkServer.Spawn(ball);
         }
     }
 

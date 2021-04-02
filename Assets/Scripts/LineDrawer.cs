@@ -1,26 +1,17 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using Mirror;
 
 public class LineDrawer : NetworkBehaviour
 {
 	public LayerMask cantDrawOverLayer;
 	public GameObject linePrefab;
-	public GameObject leftSideImage;
-	public GameObject rightSideImage;
-	public Sprite redInkSprite;
-	public Sprite blueInkSprite;
-	public Sprite yellowInkSprite;
+	public GameObject leftSideInkImage;
+	public GameObject rightSideInkImage;
 	[HideInInspector] public Gradient lineColor;
-	[SerializeField] private GameObject currentLine;
-
-	[SerializeField]
-	private Image leftSideInkImage;
-
-	[SerializeField]
-	GameObject LeftSideInkImageGameObject;
-
-	private Vector2 ServermousePosition;
+	private GameObject currentLine;
+	private GameObject leftSideInkImageGameObject;
+	private GameObject rightSideInkImageGameObject;
+	private Vector2 serverMousePosition;
 	private Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
 	private Color blueInk = new Color(0.2235294f, 0.6f, 0.8352942f, 1.0f);
 	private Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
@@ -28,39 +19,53 @@ public class LineDrawer : NetworkBehaviour
 	[Command]
 	public void RedButton()
 	{
+		if (!hasAuthority)
+		{
+			return;
+		}
+
 		lineColor.SetKeys(
 			new GradientColorKey[] { new GradientColorKey(redInk, 1.0f) },
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 		);
 
-		LeftSideInkImageGameObject.GetComponent<LeftSideInkScript>().changeImageToRed();
+		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToRed();
 	}
 
 	[Command]
 	public void BlueButton()
 	{
+		if (!hasAuthority)
+		{
+			return;
+		}
+
 		lineColor.SetKeys(
 			new GradientColorKey[] { new GradientColorKey(blueInk, 1.0f) },
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 		);
 
-		LeftSideInkImageGameObject.GetComponent<LeftSideInkScript>().changeImageToBlue();
-
+		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToBlue();
 	}
 
 	[Command]
 	public void YellowButton()
 	{
+		if (!hasAuthority)
+		{
+			return;
+		}
+
 		lineColor.SetKeys(
 			new GradientColorKey[] { new GradientColorKey(yellowInk, 1.0f) },
 			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 		);
 
-		LeftSideInkImageGameObject.GetComponent<LeftSideInkScript>().changeImageToYellow();
+		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToYellow();
 	}
 
 	[Command]
-	void BeginDraw()
+	private void BeginDraw()
 	{
 		GameObject newline = Instantiate(linePrefab);
 		NetworkServer.Spawn(newline);
@@ -68,22 +73,45 @@ public class LineDrawer : NetworkBehaviour
 	}
 
 	[Command]
-	void Draw()
+	private void Draw()
 	{
-		currentLine.GetComponent<Line>().RunDrawBaseMouse(ServermousePosition);
+		currentLine.GetComponent<Line>().RunDrawBaseMouse(serverMousePosition);
 	}
 
 	[Command]
-	void SetServerMousePosition(Vector2 mouseposition)
+	private void SetServerMousePosition(Vector2 mouseposition)
     {
-		ServermousePosition = mouseposition;
+		serverMousePosition = mouseposition;
 	}
+
+	[Command]
+	private void SpawnLeftSideInkImage()
+	{
+		if (!hasAuthority)
+		{
+			return;
+		}
+
+		GameObject localLeftSideInkImageGameObject = Instantiate(leftSideInkImage);
+		NetworkServer.Spawn(localLeftSideInkImageGameObject);
+		SetLeftSideImageGameObject(localLeftSideInkImageGameObject);
+	}
+
+
 
 	[ClientRpc]
 	public void SetCurrentLine(GameObject newline)
 	{
 		currentLine = newline;
 	}
+
+	[ClientRpc]
+	private void SetLeftSideImageGameObject(GameObject localLeftSideInkImageGameObject)
+	{
+		leftSideInkImageGameObject = localLeftSideInkImageGameObject;
+	}
+
+
 
 	[Client]
 	void Start()
@@ -92,31 +120,14 @@ public class LineDrawer : NetworkBehaviour
 		{
 			return;
 		}
-		SpawnLeftInkImage();
-		
+
+		SpawnLeftSideInkImage();
 	}
 
-	[Command]
-    private void SpawnLeftInkImage()
-    {
-
-        GameObject LLeftSideInkImageGameObject = Instantiate(leftSideImage);
-        NetworkServer.Spawn(LLeftSideInkImageGameObject);
-		SetLeftSideImageGameObject(LLeftSideInkImageGameObject);
-		//RedButton();
-
-
-	}
-
-	[ClientRpc]
-    private void SetLeftSideImageGameObject(GameObject LLeftSideInkImageGameObject)
-    {
-        LeftSideInkImageGameObject = LLeftSideInkImageGameObject;
-    }
-
+	[Client]
     void Update()
 	{
-		if(!hasAuthority) 
+		if (!hasAuthority) 
 		{ 
 			return; 
 		}
@@ -137,7 +148,7 @@ public class LineDrawer : NetworkBehaviour
 		if(Input.GetKeyDown(KeyCode.Z))
         {
 			RedButton();
-        }
+		}
 
 		if (Input.GetKeyDown(KeyCode.X))
 		{

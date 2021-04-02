@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 
-public class LeftSideInkScript : NetworkBehaviour
+public class LeftSideInkImage : NetworkBehaviour
 {
     public Sprite redInkSprite;
     public Sprite blueInkSprite;
     public Sprite yellowInkSprite;
+
     [ClientRpc]
-    public void changeImageToRed()
+    public void ChangeImageToRed()
     {
         gameObject.GetComponent<Image>().transform.SetParent(GameObject.FindGameObjectWithTag("Left Side Bottle").transform, false);
         gameObject.GetComponent<Image>().sprite = redInkSprite;
@@ -19,8 +18,9 @@ public class LeftSideInkScript : NetworkBehaviour
         gameObject.GetComponent<Image>().fillOrigin = 0;
         gameObject.GetComponent<Image>().fillAmount = 100f;
     }
+
     [ClientRpc]
-    public void changeImageToBlue()
+    public void ChangeImageToBlue()
     {
         gameObject.GetComponent<Image>().transform.SetParent(GameObject.FindGameObjectWithTag("Left Side Bottle").transform, false);
         gameObject.GetComponent<Image>().sprite = blueInkSprite;
@@ -29,10 +29,10 @@ public class LeftSideInkScript : NetworkBehaviour
         gameObject.GetComponent<Image>().fillOrigin = 0;
         gameObject.GetComponent<Image>().fillAmount = 100f;
     }
-    [ClientRpc]
-    public void changeImageToYellow()
-    {
 
+    [ClientRpc]
+    public void ChangeImageToYellow()
+    {
         gameObject.GetComponent<Image>().transform.SetParent(GameObject.FindGameObjectWithTag("Left Side Bottle").transform, false);
         gameObject.GetComponent<Image>().sprite = yellowInkSprite;
         gameObject.GetComponent<Image>().type = Image.Type.Filled;
@@ -40,5 +40,4 @@ public class LeftSideInkScript : NetworkBehaviour
         gameObject.GetComponent<Image>().fillOrigin = 0;
         gameObject.GetComponent<Image>().fillAmount = 100f;
     }
- 
 }

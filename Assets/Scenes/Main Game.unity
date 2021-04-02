@@ -439,7 +439,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8421199395915261735, guid: c66cf16e7bbceeb4badce17aaaa14b13,
           type: 3}
-        m_MethodName: YellowButton
+        m_MethodName: UserCode_YellowButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -822,7 +822,7 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 1576317030557830, guid: d489242030c18584caa5c64bba0a6082, type: 3}
   - {fileID: 8838862654573709805, guid: 9c6d8a159f4768343865312a8daeaade, type: 3}
-  - {fileID: 7500373034466612854, guid: 4532b26cdf05750489ca1fb97ce5e4aa, type: 3}
+  - {fileID: 3143082040171969939, guid: 1adf1c337f471b749a70ef29722f55ae, type: 3}
   spawnLimits: {x: 0, y: 4}
 --- !u!4 &829961913
 Transform:
@@ -931,7 +931,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8421199395915261735, guid: c66cf16e7bbceeb4badce17aaaa14b13,
           type: 3}
-        m_MethodName: BlueButton
+        m_MethodName: UserCode_BlueButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1202,7 +1202,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8421199395915261735, guid: c66cf16e7bbceeb4badce17aaaa14b13,
           type: 3}
-        m_MethodName: RedButton
+        m_MethodName: UserCode_RedButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
