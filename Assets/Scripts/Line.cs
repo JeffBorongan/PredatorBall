@@ -7,6 +7,7 @@ public class Line : NetworkBehaviour
 
 	public List<Vector2> fingerPositions;
 	[HideInInspector] public int pointsCount = 0;
+	public string LineTag = "GreenInk";
 
 	[ClientRpc]
 	public void drawBaseOnMouse(Vector2 mousePosition)

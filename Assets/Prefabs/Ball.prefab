@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 7500373034466612855}
   - component: {fileID: 7500373034466612851}
   - component: {fileID: 7500373034466612844}
+  - component: {fileID: -8755254054280398329}
+  - component: {fileID: 4527290609150929114}
   m_Layer: 8
   m_Name: Ball
   m_TagString: Game Ball
@@ -75,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: f9d5fd7174a81a148b726e2ac6b9f528, type: 3}
-  m_Color: {r: 1, g: 0.31617647, b: 0.6132859, a: 1}
+  m_Color: {r: 0.972549, g: 0, b: 0.73704505, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -240,5 +242,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2979f1d18e35c4db8155c145399537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftSideScoreText: {fileID: 0}
+  rightSideScoreText: {fileID: 0}
+  leftSideScore: 0
+  rightSideScore: 0
   rigidBody2D: {fileID: 7500373034466612848}
-  movementSpeed: 200
+--- !u!114 &-8755254054280398329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7500373034466612854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &4527290609150929114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7500373034466612854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 0
+  localPositionSensitivity: 0
+  localRotationSensitivity: 0
+  localScaleSensitivity: 0

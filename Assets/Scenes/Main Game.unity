@@ -823,7 +823,10 @@ MonoBehaviour:
   - {fileID: 1576317030557830, guid: d489242030c18584caa5c64bba0a6082, type: 3}
   - {fileID: 8838862654573709805, guid: 9c6d8a159f4768343865312a8daeaade, type: 3}
   - {fileID: 3143082040171969939, guid: 1adf1c337f471b749a70ef29722f55ae, type: 3}
+  - {fileID: 7500373034466612854, guid: 4532b26cdf05750489ca1fb97ce5e4aa, type: 3}
   spawnLimits: {x: 0, y: 4}
+  ballToManipulate: {fileID: 7500373034466612854, guid: 4532b26cdf05750489ca1fb97ce5e4aa,
+    type: 3}
 --- !u!4 &829961913
 Transform:
   m_ObjectHideFlags: 0

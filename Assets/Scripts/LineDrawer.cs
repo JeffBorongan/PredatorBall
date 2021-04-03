@@ -162,17 +162,17 @@ public class LineDrawer : NetworkBehaviour
 			return; 
 		}
 
-		//Vector3 mouseposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		///SetServerMousePosition(mouseposition);
+		Vector3 mouseposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		SetServerMousePosition(mouseposition);
 
 		if (Input.GetMouseButtonDown(0))
         {
-			//BeginDraw();
+			BeginDraw();
 		}
 
 		if (this.currentLine != null)
 		{
-			//Draw();
+			Draw();
 		}	
 
 		if(Input.GetKeyDown(KeyCode.Z))

@@ -6,6 +6,7 @@ public class InkNetworkManager : NetworkManager
 {
     public Vector2 spawnLimits;
     GameObject ball;
+    public GameObject ballToManipulate;
 
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
@@ -14,10 +15,10 @@ public class InkNetworkManager : NetworkManager
 
         if (numPlayers == 2)
         {
-            //ball = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "Ball"));
-            //Vector2 spawnPosition = new Vector2(-0.13f, Random.Range(-spawnLimits.y, spawnLimits.y));
-            //ball.transform.position = spawnPosition;
-            //NetworkServer.Spawn(ball);
+            ball = Instantiate(ballToManipulate);
+            Vector2 spawnPosition = new Vector2(-0.13f, Random.Range(-spawnLimits.y, spawnLimits.y));
+            ball.transform.position = spawnPosition;
+            NetworkServer.Spawn(ball);
         }
     }
 
