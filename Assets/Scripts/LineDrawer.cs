@@ -13,8 +13,8 @@ public class LineDrawer : NetworkBehaviour
 	private GameObject rightSideInkImageGameObject;
 	private Vector2 serverMousePosition;
 	private Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
-	private Color blueInk = new Color(0.2235294f, 0.6f, 0.8352942f, 1.0f);
 	private Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
+	private Color greenInk = new Color(0.3803922f, 0.8352942f, 0.1568628f, 1.0f);
 
 	[Command]
 	public void LeftSideRedButton()
@@ -25,17 +25,6 @@ public class LineDrawer : NetworkBehaviour
 		);
 
 		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToRed();
-	}
-
-	[Command]
-	public void LeftSideBlueButton()
-	{
-		lineColor.SetKeys(
-			new GradientColorKey[] { new GradientColorKey(blueInk, 1.0f) },
-			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
-		);
-
-		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToBlue();
 	}
 
 	[Command]
@@ -50,6 +39,17 @@ public class LineDrawer : NetworkBehaviour
 	}
 
 	[Command]
+	public void LeftSideGreenButton()
+	{
+		lineColor.SetKeys(
+			new GradientColorKey[] { new GradientColorKey(greenInk, 1.0f) },
+			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+		);
+
+		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToGreen();
+	}
+
+	[Command]
 	public void RightSideRedButton()
 	{
 		lineColor.SetKeys(
@@ -61,17 +61,6 @@ public class LineDrawer : NetworkBehaviour
 	}
 
 	[Command]
-	public void RightSideBlueButton()
-	{
-		lineColor.SetKeys(
-			new GradientColorKey[] { new GradientColorKey(blueInk, 1.0f) },
-			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
-		);
-
-		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToBlue();
-	}
-
-	[Command]
 	public void RightSideYellowButton()
 	{
 		lineColor.SetKeys(
@@ -80,6 +69,17 @@ public class LineDrawer : NetworkBehaviour
 		);
 
 		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToYellow();
+	}
+
+	[Command]
+	public void RightSideGreenButton()
+	{
+		lineColor.SetKeys(
+			new GradientColorKey[] { new GradientColorKey(greenInk, 1.0f) },
+			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+		);
+
+		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToGreen();
 	}
 
 	[Command]
@@ -192,12 +192,12 @@ public class LineDrawer : NetworkBehaviour
 		{
 			if (!isClientOnly)
 			{
-				LeftSideBlueButton();
+				LeftSideYellowButton();
 			}
 
 			if (isClientOnly)
 			{
-				RightSideBlueButton();
+				RightSideYellowButton();
 			}
 		}
 
@@ -205,12 +205,12 @@ public class LineDrawer : NetworkBehaviour
 		{
 			if (!isClientOnly)
 			{
-				LeftSideYellowButton();
+				LeftSideGreenButton();
 			}
 
 			if (isClientOnly)
 			{
-				RightSideYellowButton();
+				RightSideGreenButton();
 			}
 		}
 	}
