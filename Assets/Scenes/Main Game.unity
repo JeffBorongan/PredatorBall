@@ -821,9 +821,11 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 1576317030557830, guid: d489242030c18584caa5c64bba0a6082, type: 3}
+  - {fileID: 7500373034466612854, guid: 4532b26cdf05750489ca1fb97ce5e4aa, type: 3}
   - {fileID: 8838862654573709805, guid: 9c6d8a159f4768343865312a8daeaade, type: 3}
   - {fileID: 3143082040171969939, guid: 1adf1c337f471b749a70ef29722f55ae, type: 3}
-  - {fileID: 7500373034466612854, guid: 4532b26cdf05750489ca1fb97ce5e4aa, type: 3}
+  - {fileID: 4121651817522229637, guid: 70a4be03633ba6241b513bda28875071, type: 3}
+  - {fileID: 2408436930269760517, guid: ca27af4e41663904082499de7b8f640c, type: 3}
   spawnLimits: {x: 0, y: 4}
   ballToManipulate: {fileID: 7500373034466612854, guid: 4532b26cdf05750489ca1fb97ce5e4aa,
     type: 3}

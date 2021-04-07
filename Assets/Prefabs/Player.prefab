@@ -133,6 +133,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  PlayerUIPrefab: {fileID: 3655743914432923492, guid: bb84c52b3b6e4fa4a9bd9f324747e579,
+  PlayerUIPrefab: {fileID: 4121651817522229637, guid: 70a4be03633ba6241b513bda28875071,
     type: 3}
   playerScore: 0

@@ -21,7 +21,8 @@ public class InkPlayer : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        playerUI = Instantiate(PlayerUIPrefab,gameObject.transform);
+        playerUI = Instantiate(PlayerUIPrefab);
+        playerUI.transform.SetParent(GameObject.FindGameObjectWithTag("Left Side Bottle").transform, false);
         playerUI.GetComponent<InkPlayerUI>().SetPlayer(this);
 
         // Invoke all event handlers with the current data
