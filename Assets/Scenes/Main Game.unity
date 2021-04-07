@@ -853,6 +853,8 @@ GameObject:
   m_Component:
   - component: {fileID: 844478584}
   - component: {fileID: 844478585}
+  - component: {fileID: 844478586}
+  - component: {fileID: 844478587}
   m_Layer: 0
   m_Name: LeftSideGoal
   m_TagString: Left Side Goal
@@ -900,6 +902,35 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 2.33}
   m_EdgeRadius: 0
+--- !u!114 &844478586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844478583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d077c579b91be00479a557563646bd86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GoalTag: LeftSideGoal
+--- !u!114 &844478587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844478583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 4127493545
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &1338911748
 GameObject:
   m_ObjectHideFlags: 0

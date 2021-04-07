@@ -25,21 +25,16 @@ public class InkPlayer : NetworkBehaviour
         playerUI.transform.SetParent(GameObject.FindGameObjectWithTag("Left Side Bottle").transform, false);
         playerUI.GetComponent<InkPlayerUI>().SetPlayer(this);
 
+        GameObject LeftSideGoal =  GameObject.Find("LeftSideGoal");
+        LeftSideGoal.GetComponent<InkGoal>().player = this;
+
+
         // Invoke all event handlers with the current data
         OnPlayerScored.Invoke(playerScore);
     }
 
-    public void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.J))
-        {
-            AddScore();
-            print("balbal");
-        }
-    }
-
     [Server]
-    void AddScore()
+    public void AddScore()
     {
         playerScore = playerScore + 1;
     }
