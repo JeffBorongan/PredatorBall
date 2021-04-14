@@ -9,14 +9,17 @@ public class LineDrawer : NetworkBehaviour
 	public GameObject rightSideInkImage;
 	[HideInInspector] public Gradient lineColor;
 	private GameObject currentLine;
+	[SyncVar]
 	private GameObject leftSideInkImageGameObject;
+
 	private GameObject rightSideInkImageGameObject;
 	private Vector2 serverMousePosition;
 	private Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
 	private Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
 	private Color greenInk = new Color(0.3803922f, 0.8352942f, 0.1568628f, 1.0f);
 
-	[Command]
+    #region
+    [Command]
 	public void LeftSideRedButton()
 	{
 		lineColor.SetKeys(
@@ -26,6 +29,7 @@ public class LineDrawer : NetworkBehaviour
 
 		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToRed();
 	}
+
 
 	[Command]
 	public void LeftSideYellowButton()
@@ -81,8 +85,18 @@ public class LineDrawer : NetworkBehaviour
 
 		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToGreen();
 	}
+    #endregion
 
-	[Command]
+	public void RedButtonPressed()
+    {
+		redbuttontestpress();
+    }
+	private void redbuttontestpress()
+    {
+		print("iam pressed");
+		LeftSideRedButton();
+	}
+    [Command]
 	private void BeginDraw()
 	{
 		GameObject newline = Instantiate(linePrefab);
@@ -167,7 +181,7 @@ public class LineDrawer : NetworkBehaviour
 
 		if (Input.GetMouseButtonDown(0))
         {
-			BeginDraw();
+			//BeginDraw();
 		}
 
 		if (this.currentLine != null)

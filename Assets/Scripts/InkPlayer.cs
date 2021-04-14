@@ -6,7 +6,14 @@ using Mirror;
 public class InkPlayer : NetworkBehaviour
 {
     public GameObject PlayerUIPrefab;
+    public GameObject RedButtonPrefab;
+    public GameObject YellowButtonPrefab;
+    public GameObject GreenButtonPrefab;
+
     GameObject playerUI;
+    GameObject Redbutton;
+    GameObject Yellowbutton;
+    GameObject Greenbutton;
     // Events that the UI will subscribe to
     public event System.Action<int> OnPlayerScored;
 
@@ -25,6 +32,21 @@ public class InkPlayer : NetworkBehaviour
         playerUI.transform.SetParent(GameObject.FindGameObjectWithTag("Left Side Bottle").transform, false);
         playerUI.GetComponent<InkPlayerUI>().SetPlayer(this);
 
+        Redbutton = Instantiate(RedButtonPrefab);
+        NetworkServer.Spawn(Redbutton, connectionToClient);
+        Redbutton.transform.SetParent(GameObject.FindGameObjectWithTag("LeftSidePlayer").transform, false);
+        Redbutton.GetComponent<SpeedButton>().InkPlayer = this;
+
+        Yellowbutton = Instantiate(YellowButtonPrefab);
+        NetworkServer.Spawn(Yellowbutton, connectionToClient);
+        Yellowbutton.transform.SetParent(GameObject.FindGameObjectWithTag("LeftSidePlayer").transform, false);
+        Yellowbutton.GetComponent<SpeedButton>().InkPlayer = this;
+
+        Greenbutton = Instantiate(GreenButtonPrefab);
+        NetworkServer.Spawn(Greenbutton, connectionToClient);
+        Greenbutton.transform.SetParent(GameObject.FindGameObjectWithTag("LeftSidePlayer").transform, false);
+        Greenbutton.GetComponent<SpeedButton>().InkPlayer = this;
+
         GameObject LeftSideGoal =  GameObject.Find("LeftSideGoal");
         LeftSideGoal.GetComponent<InkGoal>().player = this;
 
@@ -38,4 +60,24 @@ public class InkPlayer : NetworkBehaviour
     {
         playerScore = playerScore + 1;
     }
+
+    [ClientRpc]
+    public void SetActiveButtonRed()
+    {
+        gameObject.GetComponent<LineDrawer>().LeftSideRedButton();
+    }
+
+    [ClientRpc]
+    public void SetActiveButtonYellow()
+    {
+        gameObject.GetComponent<LineDrawer>().LeftSideYellowButton();
+    }
+
+    [ClientRpc]
+    public void SetActiveButtonGreen()
+    {
+        gameObject.GetComponent<LineDrawer>().LeftSideGreenButton();
+    }
+
+
 }
