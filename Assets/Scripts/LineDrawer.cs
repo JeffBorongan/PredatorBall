@@ -8,10 +8,13 @@ public class LineDrawer : NetworkBehaviour
 	public GameObject leftSideInkImage;
 	public GameObject rightSideInkImage;
 	[HideInInspector] public Gradient lineColor;
-	private GameObject currentLine;
-	[SyncVar]
-	private GameObject leftSideInkImageGameObject;
+	public float pointsMinDistance;
+	public float lineWidth;
+	public float maximumLineLength;
+	public int maximumLinePoints;
 
+	private GameObject currentLine;
+	[SyncVar] private GameObject leftSideInkImageGameObject;
 	private GameObject rightSideInkImageGameObject;
 	private Vector2 serverMousePosition;
 	private Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
@@ -91,29 +94,37 @@ public class LineDrawer : NetworkBehaviour
     {
 		redbuttontestpress();
     }
+
 	private void redbuttontestpress()
     {
 		print("iam pressed");
 		LeftSideRedButton();
 	}
+
     [Command]
 	private void BeginDraw()
 	{
 		GameObject newline = Instantiate(linePrefab);
 		NetworkServer.Spawn(newline);
+		newline.GetComponent<Line>().SetLinePointsMinDistance(pointsMinDistance);
+		newline.GetComponent<Line>().SetLineWidth(lineWidth);
+		newline.GetComponent<Line>().CreateLine();
 		SetCurrentLine(newline);
 	}
 
 	[Command]
 	private void Draw()
 	{
-		currentLine.GetComponent<Line>().RunDrawBaseMouse(serverMousePosition);
+		if (Vector2.Distance(currentLine.GetComponent<Line>().fingerPositions[0], currentLine.GetComponent<Line>().fingerPositions[currentLine.GetComponent<Line>().fingerPositions.Count - 1]) <= maximumLineLength && currentLine.GetComponent<Line>().pointsCount <= maximumLinePoints)
+		{
+			currentLine.GetComponent<Line>().AddPoint(serverMousePosition);
+		}
 	}
 
 	[Command]
-	private void SetServerMousePosition(Vector2 mouseposition)
+	private void SetServerMousePosition(Vector2 mousePosition)
     {
-		serverMousePosition = mouseposition;
+		serverMousePosition = mousePosition;
 	}
 
 	[Command]
@@ -176,8 +187,8 @@ public class LineDrawer : NetworkBehaviour
 			return; 
 		}
 
-		Vector3 mouseposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		SetServerMousePosition(mouseposition);
+		Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		SetServerMousePosition(mousePosition);
 
 		if (Input.GetMouseButtonDown(0))
         {

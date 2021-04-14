@@ -4,27 +4,59 @@ using Mirror;
 
 public class Line : NetworkBehaviour
 {
-
-	public List<Vector2> fingerPositions;
+	[HideInInspector] public List<Vector2> fingerPositions;
 	[HideInInspector] public int pointsCount = 0;
 	public string LineTag = "GreenInk";
+	private float linePointsMinDistance;
 
 	[ClientRpc]
-	public void drawBaseOnMouse(Vector2 mousePosition)
+	public void SetLineColor(Gradient colorGradient)
 	{
-		pointsCount++;
-		gameObject.GetComponent<LineRenderer>().positionCount = pointsCount;
-		gameObject.GetComponent<LineRenderer>().SetPosition(pointsCount - 1, mousePosition);
-		fingerPositions.Add(mousePosition);
+		gameObject.GetComponent<LineRenderer>().colorGradient = colorGradient;
+	}
 
+	[ClientRpc]
+	public void SetLinePointsMinDistance(float distance)
+	{
+		linePointsMinDistance = distance;
+	}
+
+	[ClientRpc]
+	public void SetLineWidth(float width)
+	{
+		gameObject.GetComponent<LineRenderer>().startWidth = width;
+		gameObject.GetComponent<LineRenderer>().endWidth = width;
+	}
+
+	[ClientRpc]
+	public void CreateLine()
+	{
+		fingerPositions.Clear();
+		fingerPositions.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+		fingerPositions.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+		gameObject.GetComponent<LineRenderer>().SetPosition(0, fingerPositions[0]);
+		gameObject.GetComponent<LineRenderer>().SetPosition(1, fingerPositions[1]);
 		gameObject.GetComponents<EdgeCollider2D>()[0].points = fingerPositions.ToArray();
 		gameObject.GetComponents<EdgeCollider2D>()[1].points = fingerPositions.ToArray();
 	}
 
-	public void RunDrawBaseMouse(Vector2 mousePosition)
-    {
-		drawBaseOnMouse(mousePosition);
-    }
+	[ClientRpc]
+	public void AddPoint(Vector2 newFingerPosition)
+	{
+		if (pointsCount >= 1 && Vector2.Distance(newFingerPosition, fingerPositions[fingerPositions.Count - 1]) < linePointsMinDistance)
+		{
+			return;
+		}
 
+		fingerPositions.Add(newFingerPosition);
+		pointsCount++;
+		gameObject.GetComponent<LineRenderer>().positionCount = pointsCount;
+		gameObject.GetComponent<LineRenderer>().SetPosition(pointsCount - 1, newFingerPosition);
+
+		if (pointsCount > 1)
+		{
+			gameObject.GetComponents<EdgeCollider2D>()[0].points = fingerPositions.ToArray();
+			gameObject.GetComponents<EdgeCollider2D>()[1].points = fingerPositions.ToArray();
+		}
+	}
 }
-
