@@ -128,7 +128,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2008465314044065624}
-        m_MethodName: setActiveButtonGreen
+        m_MethodName: LsetActiveButtonGreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -188,44 +188,5 @@ public class LineDrawer : NetworkBehaviour
 		{
 			Draw();
 		}	
-
-		if(Input.GetKeyDown(KeyCode.Z))
-        {
-			if (!isClientOnly)
-			{
-				LeftSideRedButton();
-			}
-
-			if (isClientOnly)
-			{
-				RightSideRedButton();
-			}
-		}
-
-		if (Input.GetKeyDown(KeyCode.X))
-		{
-			if (!isClientOnly)
-			{
-				LeftSideYellowButton();
-			}
-
-			if (isClientOnly)
-			{
-				RightSideYellowButton();
-			}
-		}
-
-		if (Input.GetKeyDown(KeyCode.C))
-		{
-			if (!isClientOnly)
-			{
-				LeftSideGreenButton();
-			}
-
-			if (isClientOnly)
-			{
-				RightSideGreenButton();
-			}
-		}
 	}
 }

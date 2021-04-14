@@ -21,6 +21,7 @@ public class InkNetworkManager : NetworkManager
             Vector2 spawnPosition = new Vector2(-0.13f, Random.Range(-spawnLimits.y, spawnLimits.y));
             ball.transform.position = spawnPosition;
             NetworkServer.Spawn(ball);
+            player.GetComponent<InkPlayer>().PlayerNumber = numPlayers;
         }
     }
 

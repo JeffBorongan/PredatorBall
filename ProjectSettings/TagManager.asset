@@ -15,6 +15,7 @@ TagManager:
   - Yellow Ink
   - Green Ink
   - LeftSidePlayer
+  - RightSidePlayer
   layers:
   - Default
   - TransparentFX

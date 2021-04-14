@@ -135,10 +135,17 @@ MonoBehaviour:
   syncInterval: 0.1
   PlayerUIPrefab: {fileID: 4121651817522229637, guid: 70a4be03633ba6241b513bda28875071,
     type: 3}
-  RedButtonPrefab: {fileID: 6224024574230547231, guid: 37a1b9c30a6f7c84e88c2c65b396bd5a,
+  LRedButtonPrefab: {fileID: 6224024574230547231, guid: 37a1b9c30a6f7c84e88c2c65b396bd5a,
     type: 3}
-  YellowButtonPrefab: {fileID: 3922277328902394321, guid: 521d0a825b8d2074b853a8e0cb4fb6e1,
+  LYellowButtonPrefab: {fileID: 3922277328902394321, guid: 521d0a825b8d2074b853a8e0cb4fb6e1,
     type: 3}
-  GreenButtonPrefab: {fileID: 2008465314044065631, guid: 2264e75828d4d6049a247b974f5af5f2,
+  LGreenButtonPrefab: {fileID: 2008465314044065631, guid: 2264e75828d4d6049a247b974f5af5f2,
     type: 3}
+  RRedButtonPrefab: {fileID: 1104551227227576632, guid: 065395d8a327b594ca8c1384b6cd1d34,
+    type: 3}
+  RYellowButtonPrefab: {fileID: 6611437473200248512, guid: c753aea6af931d44e814fddd019bc38e,
+    type: 3}
+  RGreenButtonPrefab: {fileID: 177314193533491321, guid: 82db351e2326bbf4dba5912365a95104,
+    type: 3}
+  PlayerNumber: 0
   playerScore: 0

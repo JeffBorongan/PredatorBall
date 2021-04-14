@@ -12,32 +12,50 @@ public class SpeedButton : NetworkBehaviour
         {
             buttonClick = new UnityEvent();
         }
-
     }
 
-    
+    [ClientRpc]
+    public void SetPlayerInk(InkPlayer inkplayer)
+    {
+        InkPlayer = inkplayer;
+    }
     void OnMouseUp()
     {
         buttonClick.Invoke();
     }
 
     
-    public void setActiveButtonRed()
+    public void LsetActiveButtonRed()
     {
-
-            InkPlayer.GetComponent<InkPlayer>().SetActiveButtonRed();
-        
+       InkPlayer.GetComponent<InkPlayer>().LSetActiveButtonRed(); 
     }
 
    
-    public void setActiveButtonYellow()
+    public void LsetActiveButtonYellow()
     {
-        InkPlayer.GetComponent<InkPlayer>().SetActiveButtonYellow();
+        InkPlayer.GetComponent<InkPlayer>().LSetActiveButtonYellow();
     }
 
-    public void setActiveButtonGreen()
+    public void LsetActiveButtonGreen()
     {
-        InkPlayer.GetComponent<InkPlayer>().SetActiveButtonGreen();
+        InkPlayer.GetComponent<InkPlayer>().LSetActiveButtonGreen();
     }
+
+    public void RsetActiveButtonRed()
+    {
+        InkPlayer.GetComponent<InkPlayer>().RSetActiveButtonRed();
+    }
+
+
+    public void RsetActiveButtonYellow()
+    {
+        InkPlayer.GetComponent<InkPlayer>().RSetActiveButtonYellow();
+    }
+
+    public void RsetActiveButtonGreen()
+    {
+        InkPlayer.GetComponent<InkPlayer>().RSetActiveButtonGreen();
+    }
+
 
 }
