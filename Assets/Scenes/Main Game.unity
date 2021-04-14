@@ -682,6 +682,8 @@ MonoBehaviour:
   - {fileID: 4121651817522229637, guid: 70a4be03633ba6241b513bda28875071, type: 3}
   - {fileID: 2408436930269760517, guid: ca27af4e41663904082499de7b8f640c, type: 3}
   - {fileID: 6224024574230547231, guid: 37a1b9c30a6f7c84e88c2c65b396bd5a, type: 3}
+  - {fileID: 2008465314044065631, guid: 2264e75828d4d6049a247b974f5af5f2, type: 3}
+  - {fileID: 3922277328902394321, guid: 521d0a825b8d2074b853a8e0cb4fb6e1, type: 3}
   spawnLimits: {x: 0, y: 4}
   ballToManipulate: {fileID: 7500373034466612854, guid: 4532b26cdf05750489ca1fb97ce5e4aa,
     type: 3}

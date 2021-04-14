@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using Mirror;
 
 [AddComponentMenu("")]
@@ -12,6 +13,7 @@ public class InkNetworkManager : NetworkManager
     {
         GameObject player = Instantiate(playerPrefab);
         NetworkServer.AddPlayerForConnection(conn, player);
+        player.GetComponent<InkPlayer>().PlayerNumber = numPlayers;
 
         if (numPlayers == 2)
         {
