@@ -63,6 +63,7 @@ namespace Mirror.Examples.Basic
 
             // Add this to the static Players List
             ((BasicNetManager)NetworkManager.singleton).playersList.Add(this);
+           
 
             // set the Player Color SyncVar
             playerColor = Random.ColorHSV(0f, 1f, 0.9f, 0.9f, 1f, 1f);

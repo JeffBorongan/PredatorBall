@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: f9d5fd7174a81a148b726e2ac6b9f528, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 65490216c5d419b4ea4664e911e2fdaa, type: 3}
   m_Color: {r: 0.972549, g: 0, b: 0.73704505, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -247,6 +247,7 @@ MonoBehaviour:
   leftSideScore: 0
   rightSideScore: 0
   rigidBody2D: {fileID: 7500373034466612848}
+  BallTag: ball
 --- !u!114 &-8755254054280398329
 MonoBehaviour:
   m_ObjectHideFlags: 0
