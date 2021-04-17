@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using Mirror;
 
 [AddComponentMenu("")]
 public class InkNetworkManager : NetworkManager
 {
     public Vector2 spawnLimits;
-    GameObject ball;
     public GameObject ballToManipulate;
+
+    private GameObject ball;
 
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
