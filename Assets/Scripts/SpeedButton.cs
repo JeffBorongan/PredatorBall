@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine.Events;
 using Mirror;
 
 public class SpeedButton : NetworkBehaviour
@@ -23,14 +22,12 @@ public class SpeedButton : NetworkBehaviour
     {
         buttonClick.Invoke();
     }
-
     
     public void LsetActiveButtonRed()
     {
        InkPlayer.GetComponent<InkPlayer>().LSetActiveButtonRed(); 
     }
 
-   
     public void LsetActiveButtonYellow()
     {
         InkPlayer.GetComponent<InkPlayer>().LSetActiveButtonYellow();
@@ -46,7 +43,6 @@ public class SpeedButton : NetworkBehaviour
         InkPlayer.GetComponent<InkPlayer>().RSetActiveButtonRed();
     }
 
-
     public void RsetActiveButtonYellow()
     {
         InkPlayer.GetComponent<InkPlayer>().RSetActiveButtonYellow();
@@ -56,6 +52,4 @@ public class SpeedButton : NetworkBehaviour
     {
         InkPlayer.GetComponent<InkPlayer>().RSetActiveButtonGreen();
     }
-
-
 }

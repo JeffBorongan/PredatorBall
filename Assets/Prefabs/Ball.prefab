@@ -169,9 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2979f1d18e35c4db8155c145399537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftSideScoreText: {fileID: 0}
-  rightSideScoreText: {fileID: 0}
-  leftSideScore: 0
-  rightSideScore: 0
   rigidBody2D: {fileID: 7500373034466612848}
   BallTag: ball
+  wasGoal: 0
+  spawnLimits: {x: 0, y: 4}

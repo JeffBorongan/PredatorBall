@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InkGoal : MonoBehaviour
 {
-    public string GoalTag = "LeftSideGoal";
     public InkPlayer player;
+    public string GoalTag = "LeftSideGoal";
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,5 +12,4 @@ public class InkGoal : MonoBehaviour
             player.GetComponent<InkPlayer>().AddScore();
         }
     }
-
 }

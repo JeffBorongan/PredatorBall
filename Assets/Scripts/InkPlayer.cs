@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Mirror;
 
 public class InkPlayer : NetworkBehaviour
@@ -74,10 +72,8 @@ public class InkPlayer : NetworkBehaviour
             Greenbutton.GetComponent<SpeedButton>().SetPlayerInk(this);
         }
         
-
         GameObject LeftSideGoal =  GameObject.Find("LeftSideGoal");
         LeftSideGoal.GetComponent<InkGoal>().player = this;
-
 
         // Invoke all event handlers with the current data
         OnPlayerScored.Invoke(playerScore);
@@ -118,6 +114,4 @@ public class InkPlayer : NetworkBehaviour
     {
         gameObject.GetComponent<LineDrawer>().RightSideGreenButton();
     }
-
-
 }

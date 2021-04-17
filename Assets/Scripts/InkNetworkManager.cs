@@ -4,8 +4,8 @@ using Mirror;
 [AddComponentMenu("")]
 public class InkNetworkManager : NetworkManager
 {
-    public Vector2 spawnLimits;
     public GameObject ballToManipulate;
+    public Vector2 spawnLimits;
 
     private GameObject ball;
 
@@ -15,7 +15,7 @@ public class InkNetworkManager : NetworkManager
         NetworkServer.AddPlayerForConnection(conn, player);
         player.GetComponent<InkPlayer>().PlayerNumber = numPlayers;
 
-        if (numPlayers == 2)
+        if (numPlayers == 1)
         {
             ball = Instantiate(ballToManipulate);
             Vector2 spawnPosition = new Vector2(-0.13f, Random.Range(-spawnLimits.y, spawnLimits.y));

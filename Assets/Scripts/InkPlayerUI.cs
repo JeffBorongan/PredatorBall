@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
 
 public class InkPlayerUI : MonoBehaviour
 {
     public Text PlayerScore;
-
 
     public void SetPlayer(InkPlayer player)
     {

@@ -244,7 +244,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -425,7 +425,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573489310}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.37, y: 0, z: 0}
+  m_LocalPosition: {x: 8.454, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 150564866}
@@ -548,15 +548,15 @@ MonoBehaviour:
   - {fileID: 1576317030557830, guid: d489242030c18584caa5c64bba0a6082, type: 3}
   - {fileID: 7500373034466612854, guid: 4532b26cdf05750489ca1fb97ce5e4aa, type: 3}
   - {fileID: 8838862654573709805, guid: 9c6d8a159f4768343865312a8daeaade, type: 3}
-  - {fileID: 3143082040171969939, guid: 1adf1c337f471b749a70ef29722f55ae, type: 3}
-  - {fileID: 4121651817522229637, guid: 70a4be03633ba6241b513bda28875071, type: 3}
-  - {fileID: 2408436930269760517, guid: ca27af4e41663904082499de7b8f640c, type: 3}
   - {fileID: 6224024574230547231, guid: 37a1b9c30a6f7c84e88c2c65b396bd5a, type: 3}
-  - {fileID: 2008465314044065631, guid: 2264e75828d4d6049a247b974f5af5f2, type: 3}
   - {fileID: 3922277328902394321, guid: 521d0a825b8d2074b853a8e0cb4fb6e1, type: 3}
+  - {fileID: 2008465314044065631, guid: 2264e75828d4d6049a247b974f5af5f2, type: 3}
+  - {fileID: 4121651817522229637, guid: 70a4be03633ba6241b513bda28875071, type: 3}
+  - {fileID: 3143082040171969939, guid: 1adf1c337f471b749a70ef29722f55ae, type: 3}
   - {fileID: 1104551227227576632, guid: 065395d8a327b594ca8c1384b6cd1d34, type: 3}
   - {fileID: 6611437473200248512, guid: c753aea6af931d44e814fddd019bc38e, type: 3}
   - {fileID: 177314193533491321, guid: 82db351e2326bbf4dba5912365a95104, type: 3}
+  - {fileID: 2408436930269760517, guid: ca27af4e41663904082499de7b8f640c, type: 3}
   spawnLimits: {x: 0, y: 4}
   ballToManipulate: {fileID: 7500373034466612854, guid: 4532b26cdf05750489ca1fb97ce5e4aa,
     type: 3}
@@ -584,8 +584,8 @@ GameObject:
   m_Component:
   - component: {fileID: 844478584}
   - component: {fileID: 844478585}
-  - component: {fileID: 844478586}
   - component: {fileID: 844478587}
+  - component: {fileID: 844478586}
   m_Layer: 0
   m_Name: LeftSideGoal
   m_TagString: Left Side Goal
@@ -601,7 +601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844478583}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.39, y: 0, z: 0}
+  m_LocalPosition: {x: -8.477, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1686633515}
@@ -1003,8 +1003,16 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -29.574766, y: 14.516054}
+      - {x: -29.574762, y: 3.9087749}
+      - {x: -33.414894, y: 3.9964523}
+      - {x: -33.477722, y: -3.966313}
+      - {x: -29.57476, y: -3.9633727}
       - {x: -29.574766, y: -14.617803}
       - {x: 29.54085, y: -14.617803}
+      - {x: 29.540848, y: -3.977329}
+      - {x: 33.364418, y: -4.0191326}
+      - {x: 33.361725, y: 3.9290664}
+      - {x: 29.540846, y: 3.9083133}
       - {x: 29.54085, y: 14.278643}
       - {x: 29.269522, y: 14.516054}
     - - {x: -27.505888, y: -12.51501}
@@ -1023,8 +1031,9 @@ PolygonCollider2D:
       - {x: -28.455536, y: -4.205586}
       - {x: -28.489452, y: -4.103838}
       - {x: -28.5912, y: -4.00209}
-      - {x: -28.86253, y: -4.00209}
-      - {x: -28.86253, y: 3.9681737}
+      - {x: -33.476562, y: -3.9834328}
+      - {x: -33.40654, y: 4.005273}
+      - {x: -29.593992, y: 3.9461305}
       - {x: -28.828613, y: 3.9342577}
       - {x: -28.523369, y: 3.9003417}
       - {x: -28.387705, y: 4.137754}
@@ -1052,6 +1061,8 @@ PolygonCollider2D:
       - {x: 28.353788, y: 4.036006}
       - {x: 28.557285, y: 3.9003417}
       - {x: 28.828613, y: 3.9342577}
+      - {x: 33.35465, y: 3.9375474}
+      - {x: 33.37171, y: -4.0200415}
       - {x: 28.828613, y: -4.00209}
       - {x: 28.523369, y: -4.00209}
       - {x: 28.421621, y: -4.103838}

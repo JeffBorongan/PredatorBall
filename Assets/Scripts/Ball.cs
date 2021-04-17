@@ -1,18 +1,24 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-	[HideInInspector] public Text leftSideScoreText, rightSideScoreText;
-	[HideInInspector] public int leftSideScore, rightSideScore;
 	public Rigidbody2D rigidBody2D;
-	private float movementSpeed = 150;
+    public Vector2 spawnLimits;
+    public float movementSpeed = 150;
     public string BallTag = "ball";
 
     private void Start()
     {
-        rigidBody2D.velocity = transform.right * Time.fixedDeltaTime * movementSpeed;
+        if (Random.value > 0.5f)
+        {
+            rigidBody2D.velocity = transform.right * Time.fixedDeltaTime * movementSpeed;
+        }
+        else
+        {
+            rigidBody2D.velocity = transform.right * Time.fixedDeltaTime * -movementSpeed;
+        }
+
         print(movementSpeed);
     }
 
@@ -27,26 +33,54 @@ public class Ball : MonoBehaviour
                 {
                     movementSpeed += 50;
                     rigidBody2D.velocity = transform.right * Time.fixedDeltaTime * movementSpeed;
-                    print("Green" + movementSpeed);
+                    print("Green " + movementSpeed);
                 }
 
             }
+
             else if (other.gameObject.GetComponent<Line>().LineTag == "YellowInk")
             {
-                print("Yellow" + movementSpeed);
+                print("Yellow " + movementSpeed);
             }
+
             else if (other.gameObject.GetComponent<Line>().LineTag == "RedInk")
             {
                 if (movementSpeed > 150)
                 {
                     movementSpeed -= 50;
                     rigidBody2D.velocity = transform.right * Time.fixedDeltaTime * movementSpeed;
-                    print("Red" + movementSpeed);
+                    print("Red " + movementSpeed);
                 }
-
             }
         }
 
+        if (other.gameObject.tag == "Left Side Goal")
+        {
+            rigidBody2D.velocity = new Vector2(0, 0);
+            StartCoroutine(ResetBall());
+        }
+
+        else if (other.gameObject.tag == "Right Side Goal")
+        {
+            rigidBody2D.velocity = new Vector2(0, 0);
+            StartCoroutine(ResetBall());
+        }
     }
     #endregion
+
+    private IEnumerator ResetBall()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        Vector2 spawnPosition = new Vector2(-0.13f, Random.Range(-spawnLimits.y, spawnLimits.y));
+        gameObject.transform.position = spawnPosition;
+
+        if (Random.value > 0.5f)
+        {
+            rigidBody2D.velocity = transform.right * Time.fixedDeltaTime * movementSpeed;
+        }
+        else
+        {
+            rigidBody2D.velocity = transform.right * Time.fixedDeltaTime * -movementSpeed;
+        }
+    }
 }
