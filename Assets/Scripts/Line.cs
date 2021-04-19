@@ -29,11 +29,11 @@ public class Line : NetworkBehaviour
 	}
 
 	[ClientRpc]
-	public void CreateLine()
+	public void CreateLine(Vector2 newFingerPosition)
 	{
 		fingerPositions.Clear();
-		fingerPositions.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-		fingerPositions.Add(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+		fingerPositions.Add(newFingerPosition);
+		fingerPositions.Add(newFingerPosition);
 		gameObject.GetComponent<LineRenderer>().SetPosition(0, fingerPositions[0]);
 		gameObject.GetComponent<LineRenderer>().SetPosition(1, fingerPositions[1]);
 		gameObject.GetComponents<EdgeCollider2D>()[0].points = fingerPositions.ToArray();

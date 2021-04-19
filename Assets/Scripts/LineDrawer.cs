@@ -108,7 +108,7 @@ public class LineDrawer : NetworkBehaviour
 		NetworkServer.Spawn(newline);
 		newline.GetComponent<Line>().SetLinePointsMinDistance(pointsMinDistance);
 		newline.GetComponent<Line>().SetLineWidth(lineWidth);
-		newline.GetComponent<Line>().CreateLine();
+		newline.GetComponent<Line>().CreateLine(serverMousePosition); 
 		SetCurrentLine(newline);
 	}
 
@@ -192,7 +192,7 @@ public class LineDrawer : NetworkBehaviour
 
 		if (Input.GetMouseButtonDown(0))
         {
-			//BeginDraw();
+			BeginDraw();
 		}
 
 		if (this.currentLine != null)

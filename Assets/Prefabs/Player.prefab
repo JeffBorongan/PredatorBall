@@ -119,6 +119,10 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  pointsMinDistance: 0.2
+  lineWidth: 0.2
+  maximumLineLength: 2.5
+  maximumLinePoints: 10
 --- !u!114 &5686134055260740271
 MonoBehaviour:
   m_ObjectHideFlags: 0
