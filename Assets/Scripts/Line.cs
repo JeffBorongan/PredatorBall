@@ -8,11 +8,40 @@ public class Line : NetworkBehaviour
 	[HideInInspector] public int pointsCount = 0;
 	public string LineTag = "GreenInk";
 	private float linePointsMinDistance;
+	public Gradient lineColor;
+	private Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
+	private Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
+	private Color greenInk = new Color(0.2082199f, 0.9490196f, 0.1882353f, 1.0f);
 
 	[ClientRpc]
-	public void SetLineColor(Gradient colorGradient)
+	public void SetLineColor(string color)
 	{
-		gameObject.GetComponent<LineRenderer>().colorGradient = colorGradient;
+		
+		if(color == "red")
+        {
+			lineColor.SetKeys(
+			new GradientColorKey[] { new GradientColorKey(redInk, 1.0f) },
+			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+		);
+			gameObject.GetComponent<LineRenderer>().colorGradient = lineColor;
+
+		}
+		else if(color == "yellow")
+        {
+			lineColor.SetKeys(
+				new GradientColorKey[] { new GradientColorKey(yellowInk, 1.0f) },
+				new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+			);
+			gameObject.GetComponent<LineRenderer>().colorGradient = lineColor;
+		}
+		else if (color == "green")
+		{
+			lineColor.SetKeys(
+				new GradientColorKey[] { new GradientColorKey(greenInk, 1.0f) },
+				new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
+			);
+			gameObject.GetComponent<LineRenderer>().colorGradient = lineColor;
+		}
 	}
 
 	[ClientRpc]

@@ -7,7 +7,7 @@ public class LineDrawer : NetworkBehaviour
 	public GameObject linePrefab;
 	public GameObject leftSideInkImage;
 	public GameObject rightSideInkImage;
-	[HideInInspector] public Gradient lineColor;
+	public Gradient lineColor;
 	public float pointsMinDistance;
 	public float lineWidth;
 	public float maximumLineLength;
@@ -17,6 +17,8 @@ public class LineDrawer : NetworkBehaviour
 	[SyncVar] private GameObject leftSideInkImageGameObject;
 	private GameObject rightSideInkImageGameObject;
 	private Vector2 serverMousePosition;
+	[SyncVar]
+	private string color;
 	private Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
 	private Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
 	private Color greenInk = new Color(0.3803922f, 0.8352942f, 0.1568628f, 1.0f);
@@ -25,10 +27,7 @@ public class LineDrawer : NetworkBehaviour
     [Command]
 	public void LeftSideRedButton()
 	{
-		lineColor.SetKeys(
-			new GradientColorKey[] { new GradientColorKey(redInk, 1.0f) },
-			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
-		);
+		color = "red";
 
 		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToRed();
 	}
@@ -37,10 +36,7 @@ public class LineDrawer : NetworkBehaviour
 	[Command]
 	public void LeftSideYellowButton()
 	{
-		lineColor.SetKeys(
-			new GradientColorKey[] { new GradientColorKey(yellowInk, 1.0f) },
-			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
-		);
+		color = "yellow";
 
 		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToYellow();
 	}
@@ -48,10 +44,7 @@ public class LineDrawer : NetworkBehaviour
 	[Command]
 	public void LeftSideGreenButton()
 	{
-		lineColor.SetKeys(
-			new GradientColorKey[] { new GradientColorKey(greenInk, 1.0f) },
-			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
-		);
+		color = "green";
 
 		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToGreen();
 	}
@@ -59,10 +52,7 @@ public class LineDrawer : NetworkBehaviour
 	[Command]
 	public void RightSideRedButton()
 	{
-		lineColor.SetKeys(
-			new GradientColorKey[] { new GradientColorKey(redInk, 1.0f) },
-			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
-		);
+		color = "red";
 
 		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToRed();
 	}
@@ -70,10 +60,7 @@ public class LineDrawer : NetworkBehaviour
 	[Command]
 	public void RightSideYellowButton()
 	{
-		lineColor.SetKeys(
-			new GradientColorKey[] { new GradientColorKey(yellowInk, 1.0f) },
-			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
-		);
+		color = "yellow";
 
 		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToYellow();
 	}
@@ -81,25 +68,11 @@ public class LineDrawer : NetworkBehaviour
 	[Command]
 	public void RightSideGreenButton()
 	{
-		lineColor.SetKeys(
-			new GradientColorKey[] { new GradientColorKey(greenInk, 1.0f) },
-			new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
-		);
+		color = "green";
 
 		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToGreen();
 	}
     #endregion
-
-	public void RedButtonPressed()
-    {
-		redbuttontestpress();
-    }
-
-	private void redbuttontestpress()
-    {
-		print("iam pressed");
-		LeftSideRedButton();
-	}
 
     [Command]
 	private void BeginDraw()
@@ -108,7 +81,8 @@ public class LineDrawer : NetworkBehaviour
 		NetworkServer.Spawn(newline);
 		newline.GetComponent<Line>().SetLinePointsMinDistance(pointsMinDistance);
 		newline.GetComponent<Line>().SetLineWidth(lineWidth);
-		newline.GetComponent<Line>().CreateLine(serverMousePosition); 
+		newline.GetComponent<Line>().CreateLine(serverMousePosition);
+		newline.GetComponent<Line>().SetLineColor(color);
 		SetCurrentLine(newline);
 	}
 
@@ -171,12 +145,14 @@ public class LineDrawer : NetworkBehaviour
 		if (!isClientOnly)
 		{
 			SpawnLeftSideInkImage();
+			
 		}
 
 		if (isClientOnly)
 		{
 			SpawnRightSideInkImage();
 		}
+		
 	}
 
 	[Client]
@@ -198,6 +174,12 @@ public class LineDrawer : NetworkBehaviour
 		if (this.currentLine != null)
 		{
 			Draw();
-		}	
+		}
+		
+		if(Input.GetKeyDown(KeyCode.X))
+        {
+			
+			LeftSideRedButton();
+		}
 	}
 }
