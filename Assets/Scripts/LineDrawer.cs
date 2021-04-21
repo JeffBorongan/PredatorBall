@@ -7,99 +7,60 @@ public class LineDrawer : NetworkBehaviour
 	public GameObject linePrefab;
 	public GameObject leftSideInkImage;
 	public GameObject rightSideInkImage;
-	public Gradient lineColor;
 	public float pointsMinDistance;
 	public float lineWidth;
 	public float maximumLineLength;
 	public int maximumLinePoints;
 
-	private GameObject currentLine;
 	[SyncVar] private GameObject leftSideInkImageGameObject;
+	[SyncVar] private string lineColor;
+	private GameObject currentLine;
 	private GameObject rightSideInkImageGameObject;
 	private Vector2 serverMousePosition;
-	[SyncVar]
-	private string color;
-	private Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
-	private Color yellowInk = new Color(0.8352942f, 0.7568628f, 0.2235294f, 1.0f);
-	private Color greenInk = new Color(0.3803922f, 0.8352942f, 0.1568628f, 1.0f);
 
     #region
     [Command]
 	public void LeftSideRedButton()
 	{
-		color = "red";
-
+		lineColor = "Red";
 		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToRed();
 	}
-
 
 	[Command]
 	public void LeftSideYellowButton()
 	{
-		color = "yellow";
-
+		lineColor = "Yellow";
 		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToYellow();
 	}
 
 	[Command]
 	public void LeftSideGreenButton()
 	{
-		color = "green";
-
+		lineColor = "Green";
 		leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToGreen();
 	}
 
 	[Command]
 	public void RightSideRedButton()
 	{
-		color = "red";
-
+		lineColor = "Red";
 		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToRed();
 	}
 
 	[Command]
 	public void RightSideYellowButton()
 	{
-		color = "yellow";
-
+		lineColor = "Yellow";
 		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToYellow();
 	}
 
 	[Command]
 	public void RightSideGreenButton()
 	{
-		color = "green";
-
+		lineColor = "Green";
 		rightSideInkImageGameObject.GetComponent<RightSideInkImage>().ChangeImageToGreen();
 	}
-    #endregion
-
-    [Command]
-	private void BeginDraw()
-	{
-		GameObject newline = Instantiate(linePrefab);
-		NetworkServer.Spawn(newline);
-		newline.GetComponent<Line>().SetLinePointsMinDistance(pointsMinDistance);
-		newline.GetComponent<Line>().SetLineWidth(lineWidth);
-		newline.GetComponent<Line>().CreateLine(serverMousePosition);
-		newline.GetComponent<Line>().SetLineColor(color);
-		SetCurrentLine(newline);
-	}
-
-	[Command]
-	private void Draw()
-	{
-		if (Vector2.Distance(currentLine.GetComponent<Line>().fingerPositions[0], currentLine.GetComponent<Line>().fingerPositions[currentLine.GetComponent<Line>().fingerPositions.Count - 1]) <= maximumLineLength && currentLine.GetComponent<Line>().pointsCount <= maximumLinePoints)
-		{
-			currentLine.GetComponent<Line>().AddPoint(serverMousePosition);
-		}
-	}
-
-	[Command]
-	private void SetServerMousePosition(Vector2 mousePosition)
-    {
-		serverMousePosition = mousePosition;
-	}
+	#endregion
 
 	[Command]
 	private void SpawnLeftSideInkImage()
@@ -117,13 +78,34 @@ public class LineDrawer : NetworkBehaviour
 		SetRightSideImageGameObject(localRightSideInkImageGameObject);
 	}
 
-
-
-	[ClientRpc]
-	public void SetCurrentLine(GameObject newline)
+	[Command]
+	private void BeginDraw()
 	{
-		currentLine = newline;
+		GameObject newline = Instantiate(linePrefab);
+		NetworkServer.Spawn(newline);
+		newline.GetComponent<Line>().SetLineColor(lineColor);
+		newline.GetComponent<Line>().SetLinePointsMinDistance(pointsMinDistance);
+		newline.GetComponent<Line>().SetLineWidth(lineWidth);
+		newline.GetComponent<Line>().CreateLine(serverMousePosition);
+		SetCurrentLine(newline);
 	}
+
+	[Command]
+	private void SetServerMousePosition(Vector2 mousePosition)
+	{
+		serverMousePosition = mousePosition;
+	}
+
+	[Command]
+	private void Draw()
+	{
+		if (Vector2.Distance(currentLine.GetComponent<Line>().fingerPositions[0], currentLine.GetComponent<Line>().fingerPositions[currentLine.GetComponent<Line>().fingerPositions.Count - 1]) <= maximumLineLength && currentLine.GetComponent<Line>().pointsCount <= maximumLinePoints)
+		{
+			currentLine.GetComponent<Line>().AddPoint(serverMousePosition);
+		}
+	}
+
+
 
 	[ClientRpc]
 	private void SetLeftSideImageGameObject(GameObject localLeftSideInkImageGameObject)
@@ -137,6 +119,12 @@ public class LineDrawer : NetworkBehaviour
 		rightSideInkImageGameObject = localRightSideInkImageGameObject;
 	}
 
+	[ClientRpc]
+	public void SetCurrentLine(GameObject newline)
+	{
+		currentLine = newline;
+	}
+
 
 
 	[Client]
@@ -145,14 +133,12 @@ public class LineDrawer : NetworkBehaviour
 		if (!isClientOnly)
 		{
 			SpawnLeftSideInkImage();
-			
 		}
 
 		if (isClientOnly)
 		{
 			SpawnRightSideInkImage();
 		}
-		
 	}
 
 	[Client]
@@ -174,12 +160,6 @@ public class LineDrawer : NetworkBehaviour
 		if (this.currentLine != null)
 		{
 			Draw();
-		}
-		
-		if(Input.GetKeyDown(KeyCode.X))
-        {
-			
-			LeftSideRedButton();
 		}
 	}
 }

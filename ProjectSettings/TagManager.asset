@@ -4,16 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Game Ball
   - Left Side Goal
   - Right Side Goal
   - Left Side Score Text
   - Right Side Score Text
   - Left Side Bottle
   - Right Side Bottle
-  - Red Ink
-  - Yellow Ink
-  - Green Ink
   - LeftSidePlayer
   - RightSidePlayer
   layers:

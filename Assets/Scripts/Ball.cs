@@ -27,7 +27,7 @@ public class Ball : MonoBehaviour
     {
         if(other.gameObject.GetComponent<Line>() != null)
         {
-            if (other.gameObject.GetComponent<Line>().LineTag == "GreenInk")
+            if (other.gameObject.GetComponent<Line>().lineTag == "GreenInk")
             {
                 if (movementSpeed < 500)
                 {
@@ -38,12 +38,12 @@ public class Ball : MonoBehaviour
 
             }
 
-            else if (other.gameObject.GetComponent<Line>().LineTag == "YellowInk")
+            else if (other.gameObject.GetComponent<Line>().lineTag == "YellowInk")
             {
                 print("Yellow " + movementSpeed);
             }
 
-            else if (other.gameObject.GetComponent<Line>().LineTag == "RedInk")
+            else if (other.gameObject.GetComponent<Line>().lineTag == "RedInk")
             {
                 if (movementSpeed > 150)
                 {
