@@ -7,7 +7,7 @@ public class Line : NetworkBehaviour
 	[HideInInspector] public List<Vector2> fingerPositions;
 	[HideInInspector] public int pointsCount = 0;
 	[HideInInspector] public Gradient lineColor;
-	public string lineTag = "GreenInk";
+	public string lineTag = "YellowInk";
 
 	private float linePointsMinDistance;
 	private Color redInk = new Color(0.9490197f, 0.1882353f, 0.2039216f, 1.0f);
@@ -24,6 +24,7 @@ public class Line : NetworkBehaviour
 				new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 			);
 
+			lineTag = "RedInk";
 			gameObject.GetComponent<LineRenderer>().colorGradient = lineColor;
 		}
 
@@ -34,6 +35,7 @@ public class Line : NetworkBehaviour
 				new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 			);
 
+			lineTag = "YellowInk";
 			gameObject.GetComponent<LineRenderer>().colorGradient = lineColor;
 		}
 
@@ -44,6 +46,7 @@ public class Line : NetworkBehaviour
 				new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 1.0f) }
 			);
 
+			lineTag = "GreenInk";
 			gameObject.GetComponent<LineRenderer>().colorGradient = lineColor;
 		}
 	}
