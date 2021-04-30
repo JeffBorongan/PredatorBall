@@ -100,6 +100,7 @@ public class LineDrawer : NetworkBehaviour
 		serverMousePosition = mousePosition;
 	}
 
+
 	[Command]
 	private void Draw()
 	{
@@ -118,7 +119,7 @@ public class LineDrawer : NetworkBehaviour
 			currentInk = greenCurrentInk;
 		}
 
-		if (currentInk > 0)
+		if (currentInk > 0 && currentLine != null)
         {
 			RaycastHit2D hit = Physics2D.CircleCast(serverMousePosition, lineWidth / 3f, Vector2.zero, 1f, cantDrawOverLayer);
 
@@ -151,40 +152,40 @@ public class LineDrawer : NetworkBehaviour
 				if (lineColor == "Red")
 				{
 					redCurrentInk -= this.currentLine.GetComponent<Line>().pointsCount;
-					if (!isClientOnly)
+					if (gameObject.GetComponent<InkPlayer>().PlayerNumber == 1)
 					{
-						leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToRed(redCurrentInk);
+						LeftSideRedButton();
 					}
 
-					if (isClientOnly)
+					if (gameObject.GetComponent<InkPlayer>().PlayerNumber == 2)
 					{
-						rightSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToRed(redCurrentInk);
+						RightSideRedButton();
 					}
 				}
 				else if (lineColor == "Yellow")
 				{
 					yellowCurrentInk -= this.currentLine.GetComponent<Line>().pointsCount;
-					if (!isClientOnly)
+					if (gameObject.GetComponent<InkPlayer>().PlayerNumber == 1)
 					{
-						leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToYellow(yellowCurrentInk);
+						LeftSideYellowButton();
 					}
 
-					if (isClientOnly)
+					if (gameObject.GetComponent<InkPlayer>().PlayerNumber == 2)
 					{
-						rightSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToYellow(yellowCurrentInk);
+						RightSideYellowButton();
 					}
 				}
 				else if (lineColor == "Green")
 				{
 					greenCurrentInk -= this.currentLine.GetComponent<Line>().pointsCount;
-					if (!isClientOnly)
+					if (gameObject.GetComponent<InkPlayer>().PlayerNumber == 1)
 					{
-						leftSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToGreen(greenCurrentInk);
+						LeftSideGreenButton();
 					}
 
-					if (isClientOnly)
+					if (gameObject.GetComponent<InkPlayer>().PlayerNumber == 2)
 					{
-						rightSideInkImageGameObject.GetComponent<LeftSideInkImage>().ChangeImageToGreen(greenCurrentInk);
+						RightSideGreenButton();
 					}
 				}
 
