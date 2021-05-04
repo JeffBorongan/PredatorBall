@@ -4,6 +4,8 @@ using Mirror;
 public class LineDrawer : NetworkBehaviour
 {
 	public LayerMask cantDrawOverLayer;
+	public LayerMask Player1DrawingBoardGameObject;
+	public LayerMask Player2DrawingBoardGameObject;
 	public GameObject linePrefab;
 	public GameObject leftSideInkImage;
 	public GameObject rightSideInkImage;
@@ -21,6 +23,7 @@ public class LineDrawer : NetworkBehaviour
 	private int redCurrentInk = 100;
 	private int yellowCurrentInk = 100;
 	private int greenCurrentInk = 100;
+	public bool canDraw;
 
 	#region
 	[Command]
@@ -126,6 +129,7 @@ public class LineDrawer : NetworkBehaviour
 			if (hit)
             {
 				EndDraw();
+				print("balbalbal");
             }
 			else
             {
@@ -243,7 +247,7 @@ public class LineDrawer : NetworkBehaviour
 		Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		SetServerMousePosition(mousePosition);
 
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && canDraw == true)
         {
 			BeginDraw();
 		}
@@ -257,5 +261,36 @@ public class LineDrawer : NetworkBehaviour
         {
 			EndDraw();
         }
+		if(gameObject.GetComponent<InkPlayer>().PlayerNumber == 1)
+        {
+			RaycastHit2D hit = Physics2D.CircleCast(serverMousePosition, lineWidth / 3f, Vector2.zero, 1f, Player1DrawingBoardGameObject);
+			if (hit)
+			{
+				canDraw = false;
+				EndDraw();
+
+			}
+			else
+			{
+				canDraw = true;
+			}
+		}
+		if (gameObject.GetComponent<InkPlayer>().PlayerNumber == 2)
+		{
+			
+			RaycastHit2D hit = Physics2D.CircleCast(serverMousePosition, lineWidth / 3f, Vector2.zero, 1f, Player2DrawingBoardGameObject);
+			if (hit)
+			{
+				print(hit);
+				canDraw = false;
+				EndDraw();
+
+			}
+			else
+			{
+				canDraw = true;
+			}
+		}
+
 	}
 }

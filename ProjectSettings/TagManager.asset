@@ -12,6 +12,7 @@ TagManager:
   - Right Side Bottle
   - LeftSidePlayer
   - RightSidePlayer
+  - Game Ball
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - 
   - 
   - Obstacle
-  - 
-  - 
+  - Player1DrawingBoard
+  - Player2DrawingBoard
   - 
   - 
   - 
