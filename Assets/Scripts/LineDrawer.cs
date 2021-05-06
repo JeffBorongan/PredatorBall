@@ -278,10 +278,10 @@ public class LineDrawer : NetworkBehaviour
 		if (gameObject.GetComponent<InkPlayer>().PlayerNumber == 2)
 		{
 			
-			RaycastHit2D hit = Physics2D.CircleCast(serverMousePosition, lineWidth / 3f, Vector2.zero, 1f, Player2DrawingBoardGameObject);
+			RaycastHit2D hit = Physics2D.CircleCast(mousePosition, lineWidth / 3f, Vector2.zero, 1f, Player2DrawingBoardGameObject);
 			if (hit)
 			{
-				print(hit);
+				print(mousePosition);
 				canDraw = false;
 				EndDraw();
 
