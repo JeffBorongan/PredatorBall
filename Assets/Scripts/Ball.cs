@@ -20,6 +20,8 @@ public class Ball : MonoBehaviour
         }
 
         print(movementSpeed);
+
+        Physics.IgnoreLayerCollision(9, 10, true);
     }
 
     #region

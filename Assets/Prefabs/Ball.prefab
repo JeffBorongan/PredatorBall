@@ -170,6 +170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody2D: {fileID: 7500373034466612848}
-  BallTag: ball
-  wasGoal: 0
   spawnLimits: {x: 0, y: 4}
+  movementSpeed: 150
+  BallTag: ball
